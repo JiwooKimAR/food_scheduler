@@ -68,7 +68,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
             }
         });
 
-        //아이템 삭제 hello
+        //아이템 삭제
         listView_refrigerator.setOnTouchListener(new OnSwipeTouchListener(RefrigeratorActivity.this){
             @Override
             public void onSwipeLeft(){
