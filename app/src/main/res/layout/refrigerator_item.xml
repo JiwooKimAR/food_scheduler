@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <ImageView
+        android:id="@+id/refrigerator_item_type_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/ic_launcher" />
+    <TextView
+        android:id="@+id/refrigerator_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/refrigerator_item_type_image"
+        android:layout_marginLeft="15dp"
+        android:text="name of item"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/refrigerator_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/refrigerator_item_amount"
+        android:layout_alignParentRight="true"
+        android:text="date of item"
+        android:textSize="15dp"/>
+    <TextView
+        android:id="@+id/refrigerator_item_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="amount of item"
+        android:textSize="15dp"/>
+</RelativeLayout>
