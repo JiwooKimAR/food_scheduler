@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * http://recipes4dev.tistory.com/48 참고해서 listview 아이테 수정 및 추가 설정
  */
-public class RefrigeratorActivity extends AppCompatActivity {
+public class RefrigeratorActivity extends AppCompatActivity { // dfdf
     Button btn_cook, btn_add;
     ListView listView_refrigerator;
 
