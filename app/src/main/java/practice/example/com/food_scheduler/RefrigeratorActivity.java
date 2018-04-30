@@ -28,10 +28,27 @@ public class RefrigeratorActivity extends AppCompatActivity {
         listView_refrigerator = findViewById(R.id.refrigerator_listview);
         btn_cook = findViewById(R.id.btn_cook);
         btn_add = findViewById(R.id.btn_add);
+        
+        //클릭리스너 객체 생성
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btn_add:
+                        //add화면으로 넘어가기
+                        Toast.makeText(getApplicationContext(), "아이템 add화면으로", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.btn_cook:
+                        //선택된 재료 존재시 cook화면으로 넘어가기
+                        Toast.makeText(getApplicationContext(),"아이템 cook화면으로",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        };
+
 
         //데이터 가져오기
         DBHelper helper = new DBHelper(this);
-        Log.v("어댑터","DB생성");
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from tb_drive", null);
 
@@ -68,7 +85,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
             }
         });
 
-        //아이템 삭제 hello
+        //아이템 삭제
         listView_refrigerator.setOnTouchListener(new OnSwipeTouchListener(RefrigeratorActivity.this){
             @Override
             public void onSwipeLeft(){
@@ -77,23 +94,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
             }
         });
 
-        btn_add.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //add화면으로 넘어가기
-                Toast.makeText(v.getContext(),"아이템 add화면으로",Toast.LENGTH_SHORT);
-
-            }
-        });
-
-        btn_cook.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //선택된 아이템있는지 확인
-
-                //선택된 재료 존재시 cook화면으로 넘어가기
-                Toast.makeText(v.getContext(),"아이템 cook화면으로",Toast.LENGTH_SHORT);
-            }
-        });
+        btn_cook.setOnClickListener(listener);
+        btn_add.setOnClickListener(listener);
     }
 }
