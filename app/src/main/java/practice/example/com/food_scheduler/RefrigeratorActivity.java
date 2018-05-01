@@ -59,6 +59,7 @@ public class RefrigeratorActivity extends AppCompatActivity { // dfdf
             infoType.date = cursor.getString(2);
             infoType.amount = cursor.getString(3);
             infoType.img = cursor.getString(4);
+            datas.add(infoType);
         }
         db.close();
 
@@ -71,7 +72,7 @@ public class RefrigeratorActivity extends AppCompatActivity { // dfdf
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //수정화면으로 넘어가기
-                Toast.makeText(RefrigeratorActivity.this,"수정화면으로 넘어갑니다",Toast.LENGTH_SHORT).show();
+                Toast.makeText(RefrigeratorActivity.this,id+" 수정화면으로 넘어갑니다",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -81,7 +82,7 @@ public class RefrigeratorActivity extends AppCompatActivity { // dfdf
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 //radio button으로 바뀌기
                 Toast.makeText(RefrigeratorActivity.this,"라디오버튼으로 바뀝니다",Toast.LENGTH_SHORT);
-                return false;
+                return true;
             }
         });
 
