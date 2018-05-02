@@ -5,11 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,8 +37,26 @@ public class RefrigeratorActivity extends AppCompatActivity { // dfdf
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_add:
-                        //add화면으로 넘어가기
-                        Toast.makeText(getApplicationContext(), "아이템 add화면으로", Toast.LENGTH_SHORT).show();
+                        PopupMenu popup = new PopupMenu(getApplicationContext(), v);
+
+                        getMenuInflater().inflate(R.menu.add_option_menu, popup.getMenu());
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch(item.getItemId()){
+                                    case R.id.optionMenu_addByBarcode:
+                                        Toast.makeText(getApplicationContext(), "바코드로 아이템 추가", Toast.LENGTH_SHORT).show();
+                                        //바코드로 아이템 추가
+                                        break;
+                                    case R.id.optionMeue_addBySelf:
+                                        Toast.makeText(getApplicationContext(), "직접 아이템 추가", Toast.LENGTH_SHORT).show();
+                                        //아이템 직접 추가 화면으로
+                                        break;
+                                }
+                                return false;
+                            }
+                        });
+
                         break;
                     case R.id.btn_cook:
                         //선택된 재료 존재시 cook화면으로 넘어가기
@@ -80,6 +100,7 @@ public class RefrigeratorActivity extends AppCompatActivity { // dfdf
         listView_refrigerator.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("myTag", "fired");
                 //radio button으로 바뀌기
                 Toast.makeText(RefrigeratorActivity.this,"라디오버튼으로 바뀝니다",Toast.LENGTH_SHORT);
                 return true;

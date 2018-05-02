@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <ImageView
+        android:id="@+id/able_food_item_img"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/ic_launcher" />
+    <TextView
+        android:id="@+id/able_food_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/able_food_item_img"
+        android:layout_marginLeft="15dp"
+        android:text="name of item"
+        android:textColor="#000000"
+        android:textSize="25dp"/>
+    <TextView
+        android:id="@+id/able_food_item_ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/able_food_item_name"
+        android:layout_alignLeft="@id/able_food_item_name"
+        android:text="date of item"
+        android:textSize="20dp"/>
+</RelativeLayout>

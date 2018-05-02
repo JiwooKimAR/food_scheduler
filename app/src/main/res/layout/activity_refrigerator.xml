@@ -24,9 +24,10 @@
             android:text="Add"/>
     </LinearLayout>
     <ListView
+        android:id="@+id/refrigerator_listview"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_below="@id/button_layout"
-        android:id="@+id/refrigerator_listview"/>
+        />
 
 </RelativeLayout>

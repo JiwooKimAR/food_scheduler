@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/optionMenu_addByBarcode"
+        android:title="바코드로 추가"/>
+    <item
+        android:id="@+id/optionMeue_addBySelf"
+        android:title="직접 추가"/>
+
+</menu>

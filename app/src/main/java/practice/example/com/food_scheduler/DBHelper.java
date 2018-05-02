@@ -15,7 +15,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.v("DB생성","정보 생성 전");
         //SimpleAdapter, CusrsorAdapter Test.........
         String driverTable="create table tb_drive ("+
                 "_id integer primary key autoincrement," +
