@@ -1,5 +1,6 @@
 package practice.example.com.food_scheduler;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,9 @@ import java.util.ArrayList;
 /**
  * http://recipes4dev.tistory.com/48 참고해서 listview 아이테 수정 및 추가 설정
  */
-public class RefrigeratorActivity extends AppCompatActivity { // dfdf
+public class RefrigeratorActivity extends AppCompatActivity {
+    int add_mode_set = 1, edit_mode_set = 2;
+    private RefrigeratorAdapter adapter;
     Button btn_cook, btn_add;
     ListView listView_refrigerator;
 
@@ -27,6 +30,9 @@ public class RefrigeratorActivity extends AppCompatActivity { // dfdf
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refrigerator);
+
+        adapter  = new RefrigeratorAdapter(this, R.layout.refrigerator_item, new ArrayList<RefrigeratorItem>());
+        adapter.initForTest();
         listView_refrigerator = findViewById(R.id.refrigerator_listview);
         btn_cook = findViewById(R.id.btn_cook);
         btn_add = findViewById(R.id.btn_add);
@@ -46,17 +52,17 @@ public class RefrigeratorActivity extends AppCompatActivity { // dfdf
                                 switch(item.getItemId()){
                                     case R.id.optionMenu_addByBarcode:
                                         Toast.makeText(getApplicationContext(), "바코드로 아이템 추가", Toast.LENGTH_SHORT).show();
-                                        //바코드로 아이템 추가
+                                        //바코드로 아이템 추가 코드
                                         break;
                                     case R.id.optionMeue_addBySelf:
-                                        Toast.makeText(getApplicationContext(), "직접 아이템 추가", Toast.LENGTH_SHORT).show();
-                                        //아이템 직접 추가 화면으로
+                                        Intent intent_RefriToAdd = new Intent(RefrigeratorActivity.this,ItemInfoActivity.class);
+                                        startActivityForResult(intent_RefriToAdd,0);
                                         break;
                                 }
                                 return false;
                             }
                         });
-
+                        popup.show();
                         break;
                     case R.id.btn_cook:
                         //선택된 재료 존재시 cook화면으로 넘어가기
@@ -67,32 +73,21 @@ public class RefrigeratorActivity extends AppCompatActivity { // dfdf
         };
 
 
-        //데이터 가져오기
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from tb_drive", null);
 
-        ArrayList<DBInfoType> datas = new ArrayList<>();
-        while(cursor.moveToNext()){
-            DBInfoType infoType = new DBInfoType();
-            infoType.name = cursor.getString(1);
-            infoType.date = cursor.getString(2);
-            infoType.amount = cursor.getString(3);
-            infoType.img = cursor.getString(4);
-            datas.add(infoType);
-        }
-        db.close();
 
         //어댑터 설정
-        RefrigeratorAdapter adapter = new RefrigeratorAdapter(this, R.layout.refrigerator_item, datas);
         listView_refrigerator.setAdapter(adapter);
 
         //아이템을 클릭시 수정화면으로 넘어가기
         listView_refrigerator.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //수정화면으로 넘어가기
-                Toast.makeText(RefrigeratorActivity.this,id+" 수정화면으로 넘어갑니다",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Adsf",Toast.LENGTH_SHORT).show();
+                Intent intent_HomeToEdit = new Intent(RefrigeratorActivity.this, ItemInfoActivity.class);
+                intent_HomeToEdit.putExtra("ITEM", adapter.getItem(position));
+                intent_HomeToEdit.putExtra("POSITION",position);
+                intent_HomeToEdit.putExtra("EDITMODE",true);
+                startActivityForResult(intent_HomeToEdit,0);
             }
         });
 
@@ -109,7 +104,6 @@ public class RefrigeratorActivity extends AppCompatActivity { // dfdf
 
         //아이템 삭제
         listView_refrigerator.setOnTouchListener(new OnSwipeTouchListener(RefrigeratorActivity.this){
-            @Override
             public void onSwipeLeft(){
                 //삭제코드
                 Toast.makeText(RefrigeratorActivity.this,"리스트뷰를 삭제합니다",Toast.LENGTH_SHORT);
@@ -118,5 +112,27 @@ public class RefrigeratorActivity extends AppCompatActivity { // dfdf
 
         btn_cook.setOnClickListener(listener);
         btn_add.setOnClickListener(listener);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        if(requestCode == 0) {
+            if (resultCode == add_mode_set) {
+                Toast.makeText(this, "Comebakc", Toast.LENGTH_SHORT).show();
+                adapter.addItem((RefrigeratorItem) intent.getSerializableExtra("ADDINFO"));
+                adapter.dataChanged();
+            } else if (resultCode == edit_mode_set) {
+                RefrigeratorItem editItem = (RefrigeratorItem) intent.getSerializableExtra("EDITINFO");
+                int pos = intent.getIntExtra("POSITION", -1);
+                if (pos != -1) {
+                    adapter.getItem(pos).setName(editItem.getName());
+                    adapter.getItem(pos).setValue(editItem.getValue());
+                    adapter.getItem(pos).setAmount(editItem.getAmount());
+                    adapter.getItem(pos).setDate(editItem.getDate());
+                    adapter.getItem(pos).setImg(editItem.getImg());
+                } else Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                adapter.dataChanged();
+            }
+        }
     }
 }

@@ -13,11 +13,13 @@ public class RefriItemInfor {
     public TextView itemNameView;
     public TextView itemAmountView;
     public TextView itemDateView;
+    public TextView itemValueView;
 
     public RefriItemInfor(View root){
         itemImageView = root.findViewById(R.id.refrigerator_item_type_image);
         itemNameView = root.findViewById(R.id.refrigerator_item_name);
         itemAmountView = root.findViewById(R.id.refrigerator_item_amount);
         itemDateView = root.findViewById(R.id.refrigerator_item_date);
+        itemValueView = root.findViewById(R.id.refrigerator_item_value);
     }
 }
