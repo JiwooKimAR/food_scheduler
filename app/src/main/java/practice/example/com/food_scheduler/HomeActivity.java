@@ -1,5 +1,6 @@
 package practice.example.com.food_scheduler;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -25,15 +26,16 @@ public class HomeActivity extends AppCompatActivity {
                 switch (v.getId()){
                     case R.id.btn_refrigerator:
                         //냉장고로 넘어가는 인덴트
-                        Toast.makeText(getApplicationContext(),"냉장고로",Toast.LENGTH_SHORT).show();
+                        Intent intent_HomeToRefri = new Intent(HomeActivity.this, RefrigeratorActivity.class);
+                        startActivity(intent_HomeToRefri);
                         break;
                     case R.id.btn_calendar:
                         //캘린더로 넘어가는 인덴트
-                        Toast.makeText(getApplicationContext(),"캘린더로",Toast.LENGTH_SHORT).show();
+                        //Intent intent_HomeToCalendar = new Intent(HomeActivity.this, RefrigeratorActivity.class    );
                         break;
                     case R.id.btn_help:
                         //도움말 관련 인덴트
-                        Toast.makeText(getApplicationContext(),"도움말로",Toast.LENGTH_SHORT).show();
+                        //Intent intent_HomeToHelp = new Intent(HomeActivity.this, RefrigeratorActivity.class    );
                         break;
                 }
             }

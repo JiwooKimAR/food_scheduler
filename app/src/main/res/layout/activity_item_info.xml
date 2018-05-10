@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:orientation="vertical"
         android:layout_margin="10dp">
         <LinearLayout
@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="상품명:"
+                android:text="상품명   :"
                 android:textSize="@dimen/ItemInfoTextSize"
                 android:textColor="@color/black"
                 android:gravity="center_vertical"
@@ -29,7 +29,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ItemInfoTextSize"/>
 
         </LinearLayout>
         <LinearLayout
@@ -51,8 +53,39 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="ex) '3개' '500g'"
-                android:inputType="text"/>
+                android:hint="ex) '3개' *단위포함"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ItemInfoTextSize"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="상품가격: "
+                android:textSize="@dimen/ItemInfoTextSize"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_marginRight="10dp"/>
+            <EditText
+                android:id="@+id/edit_itemValue"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="ex) 500"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ItemInfoTextSize"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="원"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ItemInfoTextSize"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,9 +105,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="ex) '18.03.05'"
-                android:inputType="text"/>
-
+                android:hint="ex) '2018.03.05'"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ItemInfoTextSize"/>
         </LinearLayout>
     </LinearLayout>
     <ImageView
