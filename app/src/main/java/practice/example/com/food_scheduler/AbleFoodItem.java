@@ -28,4 +28,5 @@ public class AbleFoodItem {
 
     public String getName() { return FoodName; }
     public Bitmap getImg() { return FoodImg; }
+    public String getNum() { return FoodNum; }
 }

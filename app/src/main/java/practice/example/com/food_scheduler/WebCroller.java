@@ -27,7 +27,7 @@ public class WebCroller extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.able_food_item);
 
         wv1 = (WebView)findViewById(R.id.webView);
         wv1.setWebChromeClient(new WebChromeClient());
