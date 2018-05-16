@@ -18,10 +18,11 @@ public class AbleFoodItem {
     private Bitmap FoodImg;
 
     AbleFoodItem(String foodNum, String foodName) {
+        /*
         File imgpath = new File("/data/data/practice.example.com.food_scheduler/res" + foodNum + ".jpg");
         if(imgpath.exists()) {
                FoodImg = BitmapFactory.decodeFile(imgpath.getAbsolutePath());
-        }
+        }*/
         FoodName = foodName;
         FoodNum = foodNum;
     }

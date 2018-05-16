@@ -32,7 +32,8 @@ public class RefrigeratorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_refrigerator);
 
         adapter  = new RefrigeratorAdapter(this, R.layout.refrigerator_item, new ArrayList<RefrigeratorItem>());
-        adapter.initForTest();
+        adapter.initForTest();//초기화용 테스트용
+
         listView_refrigerator = findViewById(R.id.refrigerator_listview);
         btn_cook = findViewById(R.id.btn_cook);
         btn_add = findViewById(R.id.btn_add);
@@ -65,8 +66,14 @@ public class RefrigeratorActivity extends AppCompatActivity {
                         popup.show();
                         break;
                     case R.id.btn_cook:
-                        //선택된 재료 존재시 cook화면으로 넘어가기
-                        Toast.makeText(getApplicationContext(),"아이템 cook화면으로",Toast.LENGTH_SHORT).show();
+                        //선택된 아이템 테스트를 어레이 리스트로 넘기기
+                        ArrayList<RefrigeratorItem> ingredients = new ArrayList<>();
+                        //for test
+                        ingredients.add(adapter.getItem(0));
+                        ingredients.add(adapter.getItem(1));
+                        Intent intent_RefriToAbleFood = new Intent(RefrigeratorActivity.this,AbleFoodListActivity.class);
+                        intent_RefriToAbleFood.putExtra("INGREDIENTS", ingredients);
+                        startActivity(intent_RefriToAbleFood);
                         break;
                 }
             }
@@ -82,7 +89,6 @@ public class RefrigeratorActivity extends AppCompatActivity {
         listView_refrigerator.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),"Adsf",Toast.LENGTH_SHORT).show();
                 Intent intent_HomeToEdit = new Intent(RefrigeratorActivity.this, ItemInfoActivity.class);
                 intent_HomeToEdit.putExtra("ITEM", adapter.getItem(position));
                 intent_HomeToEdit.putExtra("POSITION",position);

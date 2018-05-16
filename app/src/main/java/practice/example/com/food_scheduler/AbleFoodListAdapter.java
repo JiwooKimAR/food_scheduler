@@ -35,12 +35,12 @@ public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
     @Override
     @NonNull
     public View getView(int position, View convertView, ViewGroup parent) {
-        /*if (convertView == null) {
+        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resId, null);
             AbleFoodInfor holder = new AbleFoodInfor(convertView);
             convertView.setTag(holder);
-        }*/
+        }
 
         AbleFoodInfor holder = (AbleFoodInfor)convertView.getTag();
 
@@ -66,5 +66,10 @@ public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
 
     public void addItem(AbleFoodItem item){
         datas.add(item);
+    }
+
+    public void initForTest(){//처음에 파일 읽어오기
+        //1개의 데이터 추가
+        datas.add(new AbleFoodItem("1","스파게티"));
     }
 }

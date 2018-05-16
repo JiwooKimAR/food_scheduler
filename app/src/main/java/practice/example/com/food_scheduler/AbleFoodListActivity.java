@@ -22,7 +22,8 @@ public class AbleFoodListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_able_food_list);
 
         adapter  = new AbleFoodListAdapter(this, R.layout.able_food_item, new ArrayList<AbleFoodItem>());
-        //adapter.initForTest();
+        adapter.initForTest();//초기화용
+
         listView_ableFood = findViewById(R.id.able_food_listview);
 
         listView_ableFood.setAdapter(adapter);
@@ -30,12 +31,18 @@ public class AbleFoodListActivity extends AppCompatActivity {
         listView_ableFood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                /*
                 Toast.makeText(getApplicationContext(),"Adsf",Toast.LENGTH_SHORT).show();
                 Intent goCroll = new Intent(AbleFoodListActivity.this, WebCroller.class);
                 goCroll.putExtra("FOODNAME_KEY", adapter.getItem(position).getNum());
-                startActivityForResult(goCroll,0);
+                startActivityForResult(goCroll,0);*/
             }
         });
+
+        //인덴트 받는 부분
+        Intent intent = getIntent();
+        /*ArrayList<RefrigeratorItem> ingredients = (ArrayList<RefrigeratorItem>)intent.getSerializableExtra("INGREDIENTS");
+        Toast.makeText(getApplicationContext(),ingredients.get(0).getName().toString(),Toast.LENGTH_SHORT).show();*/
     }
 
 }
