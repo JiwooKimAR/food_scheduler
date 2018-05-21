@@ -25,17 +25,14 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
-                    case R.id.btn_refrigerator:
-                        //냉장고로 넘어가는 인덴트
+                    case R.id.btn_refrigerator: //냉장고로 넘어가는 인덴트
                         Intent intent_HomeToRefri = new Intent(HomeActivity.this, RefrigeratorActivity.class);
                         startActivity(intent_HomeToRefri);
                         break;
-                    case R.id.btn_calendar:
-                        //캘린더로 넘어가는 인덴트
+                    case R.id.btn_calendar: //캘린더로 넘어가는 인덴트
                         //Intent intent_HomeToCalendar = new Intent(HomeActivity.this, RefrigeratorActivity.class    );
                         break;
-                    case R.id.btn_help:
-                        //도움말 관련 인덴트
+                    case R.id.btn_help: //도움말 관련 인덴트
                         //Intent intent_HomeToHelp = new Intent(HomeActivity.this, RefrigeratorActivity.class    );
                         break;
                 }

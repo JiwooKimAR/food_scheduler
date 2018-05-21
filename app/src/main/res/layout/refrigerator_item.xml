@@ -3,10 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp">
+    <CheckBox
+        android:id="@+id/refrigerator_item_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone" />
     <ImageView
         android:id="@+id/refrigerator_item_type_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_toRightOf="@id/refrigerator_item_checkBox"
         android:src="@mipmap/ic_launcher" />
     <TextView
         android:id="@+id/refrigerator_item_name"

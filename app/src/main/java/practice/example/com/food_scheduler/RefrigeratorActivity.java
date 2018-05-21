@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * http://recipes4dev.tistory.com/48 참고해서 listview 아이테 수정 및 추가 설정
  */
 public class RefrigeratorActivity extends AppCompatActivity {
-    int add_mode_set = 1, edit_mode_set = 2;
+    boolean btn_cookSecondClick = false;
     private RefrigeratorAdapter adapter;
     Button btn_cook, btn_add;
     ListView listView_refrigerator;
@@ -32,33 +32,36 @@ public class RefrigeratorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_refrigerator);
 
         String text = FoodMaker.getFoodList(getApplicationContext());
-        Log.d("음식 목록", text);
 
+        //어댑터 만들고 초기 데이터 설정
         adapter  = new RefrigeratorAdapter(this, R.layout.refrigerator_item, new ArrayList<RefrigeratorItem>());
         adapter.initForTest();//초기화용 테스트용
 
+        //그 외 view들 아이디 매칭
         listView_refrigerator = findViewById(R.id.refrigerator_listview);
         btn_cook = findViewById(R.id.btn_cook);
         btn_add = findViewById(R.id.btn_add);
-        
+
+
         //클릭리스너 객체 생성
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
-                    case R.id.btn_add:
+                    case R.id.btn_add://재료 추가 버튼 누를시
+                        //팝업 메뉴 호출
                         PopupMenu popup = new PopupMenu(getApplicationContext(), v);
-
                         getMenuInflater().inflate(R.menu.add_option_menu, popup.getMenu());
+
                         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch(item.getItemId()){
-                                    case R.id.optionMenu_addByBarcode:
+                                    case R.id.optionMenu_addByBarcode://바코드로 추가
                                         Toast.makeText(getApplicationContext(), "바코드로 아이템 추가", Toast.LENGTH_SHORT).show();
                                         //바코드로 아이템 추가 코드
                                         break;
-                                    case R.id.optionMeue_addBySelf:
+                                    case R.id.optionMeue_addBySelf://직접추가
                                         Intent intent_RefriToAdd = new Intent(RefrigeratorActivity.this,ItemInfoActivity.class);
                                         startActivityForResult(intent_RefriToAdd,0);
                                         break;
@@ -69,21 +72,26 @@ public class RefrigeratorActivity extends AppCompatActivity {
                         popup.show();
                         break;
                     case R.id.btn_cook:
-                        //선택된 아이템 테스트를 어레이 리스트로 넘기기
-                        ArrayList<RefrigeratorItem> ingredients = new ArrayList<>();
-                        //for test
-                        ingredients.add(adapter.getItem(0));
-                        ingredients.add(adapter.getItem(1));
-                        Intent intent_RefriToAbleFood = new Intent(RefrigeratorActivity.this,AbleFoodListActivity.class);
-                        intent_RefriToAbleFood.putExtra("INGREDIENTS", ingredients);
-                        startActivity(intent_RefriToAbleFood);
+                        if(btn_cookSecondClick == false) {
+                            //모든 리스트뷰 checkBox 활성화
+                            adapter.setCheckBoxVisibility(true);
+                            btn_cook.setText("Recommend!");
+                            btn_cookSecondClick = true;
+                        }
+                        else {
+                            //선택된 아이템 테스트를 어레이 리스트로 넘기기
+                            ArrayList<RefrigeratorItem> ingredients = adapter.getCheckedItems();
+                            btn_cookSecondClick = false;
+                            btn_cook.setText("Cook");
+
+                            Intent intent_RefriToAbleFood = new Intent(RefrigeratorActivity.this, AbleFoodListActivity.class);
+                            intent_RefriToAbleFood.putExtra("INGREDIENTS", ingredients);
+                            startActivityForResult(intent_RefriToAbleFood, 1);
+                        }
                         break;
                 }
             }
         };
-
-
-
 
         //어댑터 설정
         listView_refrigerator.setAdapter(adapter);
@@ -111,13 +119,6 @@ public class RefrigeratorActivity extends AppCompatActivity {
             }
         });
 
-        //아이템 삭제
-        listView_refrigerator.setOnTouchListener(new OnSwipeTouchListener(RefrigeratorActivity.this){
-            public void onSwipeLeft(){
-                //삭제코드
-                Toast.makeText(RefrigeratorActivity.this,"리스트뷰를 삭제합니다",Toast.LENGTH_SHORT);
-            }
-        });
 
         btn_cook.setOnClickListener(listener);
         btn_add.setOnClickListener(listener);
@@ -125,7 +126,8 @@ public class RefrigeratorActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
-        if(requestCode == 0) {
+        if(requestCode == 0) {//check this is result of add_mode or edit_mode
+            int add_mode_set = 1, edit_mode_set = 2;
             if (resultCode == add_mode_set) {
                 Toast.makeText(this, "Comebakc", Toast.LENGTH_SHORT).show();
                 adapter.addItem((RefrigeratorItem) intent.getSerializableExtra("ADDINFO"));
@@ -141,6 +143,14 @@ public class RefrigeratorActivity extends AppCompatActivity {
                     adapter.getItem(pos).setImg(editItem.getImg());
                 } else Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
                 adapter.dataChanged();
+            }
+        }
+        else if(requestCode == 1){//check this is result of completeCooking_mode or cancelCooking_mode
+            int completeCooking_mode = 1, cancelCooking_mode = 2;
+            if(resultCode == completeCooking_mode) {
+
+            }else if (resultCode == cancelCooking_mode) {
+
             }
         }
     }

@@ -1,6 +1,7 @@
 package practice.example.com.food_scheduler;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ public class RefriItemInfor {
     public TextView itemAmountView;
     public TextView itemDateView;
     public TextView itemValueView;
+    public CheckBox itemCheckBox;
 
     public RefriItemInfor(View root){
         itemImageView = root.findViewById(R.id.refrigerator_item_type_image);
@@ -21,5 +23,6 @@ public class RefriItemInfor {
         itemAmountView = root.findViewById(R.id.refrigerator_item_amount);
         itemDateView = root.findViewById(R.id.refrigerator_item_date);
         itemValueView = root.findViewById(R.id.refrigerator_item_value);
+        itemCheckBox = root.findViewById(R.id.refrigerator_item_checkBox);
     }
 }
