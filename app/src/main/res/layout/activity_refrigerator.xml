@@ -15,13 +15,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text = "Cook"/>
+            android:text = "Cook"
+            android:visibility="gone"/>
+        <Button
+            android:id="@+id/btn_choose"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/if_icon_27_one_finger_click_329387"/>
         <Button
             android:id="@+id/btn_add"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Add"/>
+            android:text="Add"
+            android:visibility="visible"/>
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="DELETE"
+            android:visibility="gone"/>
     </LinearLayout>
     <ListView
         android:id="@+id/refrigerator_listview"

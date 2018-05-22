@@ -24,7 +24,7 @@ import java.util.Calendar;
 public class ItemInfoActivity extends AppCompatActivity {
     int cancel_mode_set = 0, add_mode_set = 1, edit_mode_set = 2;
     ImageView img_item;
-    EditText edit_itemName, edit_itemAmount, edit_itemDate, edit_itemValue;
+    EditText edit_itemName, edit_itemAmount, edit_itemDate;
     Button btn_ok, btn_cancel;
     Drawable imgDrawable;
 
@@ -43,7 +43,6 @@ public class ItemInfoActivity extends AppCompatActivity {
         edit_itemName = (EditText)findViewById(R.id.edit_itemName);
         edit_itemAmount = (EditText)findViewById(R.id.edit_itemAmount);
         edit_itemDate = (EditText)findViewById(R.id.edit_itemDate);
-        edit_itemValue = (EditText)findViewById(R.id.edit_itemValue);
         btn_ok = (Button)findViewById(R.id.btn_itemInfo_ok);
         btn_cancel = (Button)findViewById(R.id.btn_itemInfo_cancel);
 
@@ -56,7 +55,6 @@ public class ItemInfoActivity extends AppCompatActivity {
         if(edit_mode) {
             RefrigeratorItem item = (RefrigeratorItem) intent.getSerializableExtra("ITEM");
             edit_itemName.setText(item.getName());
-            edit_itemValue.setText(String.valueOf(item.getValue()));
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String strDate = sdf.format(item.getDate().getTime());
             edit_itemDate.setText(strDate);
@@ -77,9 +75,8 @@ public class ItemInfoActivity extends AppCompatActivity {
                         //값 받아오기
                         String name = edit_itemName.getText().toString();
                         String amount = edit_itemAmount.getText().toString();
-                        int value = Integer.parseInt(edit_itemValue.getText().toString());
                         Calendar date = Calendar.getInstance();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                         try {
                             date.setTime(sdf.parse(edit_itemDate.getText().toString()));
                         } catch (ParseException e) {
@@ -88,12 +85,12 @@ public class ItemInfoActivity extends AppCompatActivity {
 
                         //값 전달
                         if(!edit_mode) {//새로운 항목 만들어 인덴트에 추가하여 전달
-                            intent_ItemInfoToRefri.putExtra("ADDINFO", new RefrigeratorItem(name,value,amount,date,null));
+                            intent_ItemInfoToRefri.putExtra("ADDINFO", new RefrigeratorItem(name,amount,date,null));
                             setResult(add_mode_set, intent_ItemInfoToRefri);
                         }
                         else {//기존 인덴트 속 아이템 꺼내와 변경하기
                             intent_ItemInfoToRefri.putExtra("POSITION",intent.getIntExtra("POSITION",-1));
-                            intent_ItemInfoToRefri.putExtra("EDITINFO", new RefrigeratorItem(name,value,amount,date,null));
+                            intent_ItemInfoToRefri.putExtra("EDITINFO", new RefrigeratorItem(name,amount,date,null));
                             setResult(edit_mode_set, intent_ItemInfoToRefri);
                         }
                         finish();

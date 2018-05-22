@@ -57,7 +57,6 @@ public class RefrigeratorAdapter extends ArrayAdapter<RefrigeratorItem>{
         TextView itemNameView = holder.itemNameView;
         TextView itemAmountView = holder.itemAmountView;
         TextView itemDateView = holder.itemDateView;
-        TextView itemValueView = holder.itemValueView;
         CheckBox itemCheckBox = holder.itemCheckBox;
         itemCheckBox.setTag(position);
         itemCheckBox.setOnCheckedChangeListener(itemCheckBoxListener);
@@ -66,12 +65,11 @@ public class RefrigeratorAdapter extends ArrayAdapter<RefrigeratorItem>{
 
         itemNameView.setText(item.getName());
         itemAmountView.setText(item.getAmount());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        //유통기간에 따른 글씨색 정하기
+        //유통기간
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = sdf.format(item.getDate().getTime());
         itemDateView.setText(strDate);
-        itemValueView.setText(String.valueOf(item.getValue()));
 
         if(item.getImg() == null) {
             itemImageView.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_type_image, null));
@@ -80,6 +78,7 @@ public class RefrigeratorAdapter extends ArrayAdapter<RefrigeratorItem>{
             itemImageView.setImageDrawable(item.getImg());
         }
 
+        itemCheckBox.setChecked(false);
         if(item.getShowCheckBox()) itemCheckBox.setVisibility(View.VISIBLE);
         else itemCheckBox.setVisibility(View.GONE);
 
@@ -115,9 +114,9 @@ public class RefrigeratorAdapter extends ArrayAdapter<RefrigeratorItem>{
         //1개의 데이터 추가
         Calendar calendar = Calendar.getInstance();
         calendar.set(2018, 4,05);
-        datas.add(new RefrigeratorItem("계란", 3800 ,"30개" , calendar, null));
+        datas.add(new RefrigeratorItem("계란", "30개" , calendar, null));
         calendar.set(2018, 8,23);
-        datas.add(new RefrigeratorItem("빼빼로", 2500, "1통", calendar, null));
+        datas.add(new RefrigeratorItem("빼빼로", "1통", calendar, null));
     }
 
     public void dataChanged(){
@@ -130,6 +129,10 @@ public class RefrigeratorAdapter extends ArrayAdapter<RefrigeratorItem>{
 
     public void removeItem(int position){
         datas.remove(position);
+    }
+
+    public void removeItem(RefrigeratorItem item){
+        datas.remove(item);
     }
 
     public void setCheckBoxVisibility(boolean state) {

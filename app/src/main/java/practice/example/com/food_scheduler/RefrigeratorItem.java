@@ -12,7 +12,6 @@ import java.util.Date;
 
 public class RefrigeratorItem implements Serializable{
     private String name;
-    private int value;
     private String amount;
     private Calendar date;
     private Drawable img;
@@ -21,9 +20,8 @@ public class RefrigeratorItem implements Serializable{
 
     public RefrigeratorItem(){}
 
-    public RefrigeratorItem(String name, int value, String amount, Calendar date, Drawable img){
+    public RefrigeratorItem(String name, String amount, Calendar date, Drawable img){
         this.name =  name;
-        this.value = value;
         this.amount = amount;
         this.date = date;
         this.img = img;
@@ -32,7 +30,6 @@ public class RefrigeratorItem implements Serializable{
     }
 
     public String getName(){ return name;}
-    public int getValue(){ return value;}
     public String getAmount(){ return amount;}
     public Calendar getDate(){ return date;}
     public Drawable getImg(){ return img; }
@@ -40,7 +37,6 @@ public class RefrigeratorItem implements Serializable{
     public boolean getShowCheckBox() { return  showCheckBox; }
 
     public void setName(String name){ this.name = name; }
-    public void setValue(int value){ this.value = value; }
     public void setAmount(String amount){ this.amount = amount; }
     public void setDate(Calendar date){ this.date = date; }
     public void setImg(Drawable img){ this.img = img; }

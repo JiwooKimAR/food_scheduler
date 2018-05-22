@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class RefrigeratorActivity extends AppCompatActivity {
     boolean btn_cookSecondClick = false;
     private RefrigeratorAdapter adapter;
-    Button btn_cook, btn_add;
+    Button btn_cook, btn_add, btn_choose, btn_delete;
     ListView listView_refrigerator;
 
     @Override
@@ -41,7 +41,8 @@ public class RefrigeratorActivity extends AppCompatActivity {
         listView_refrigerator = findViewById(R.id.refrigerator_listview);
         btn_cook = findViewById(R.id.btn_cook);
         btn_add = findViewById(R.id.btn_add);
-
+        btn_choose = findViewById(R.id.btn_choose);
+        btn_delete = findViewById(R.id.btn_delete);
 
         //클릭리스너 객체 생성
         View.OnClickListener listener = new View.OnClickListener() {
@@ -72,22 +73,49 @@ public class RefrigeratorActivity extends AppCompatActivity {
                         popup.show();
                         break;
                     case R.id.btn_cook:
-                        if(btn_cookSecondClick == false) {
-                            //모든 리스트뷰 checkBox 활성화
-                            adapter.setCheckBoxVisibility(true);
-                            btn_cook.setText("Recommend!");
-                            btn_cookSecondClick = true;
-                        }
-                        else {
-                            //선택된 아이템 테스트를 어레이 리스트로 넘기기
-                            ArrayList<RefrigeratorItem> ingredients = adapter.getCheckedItems();
-                            btn_cookSecondClick = false;
-                            btn_cook.setText("Cook");
+                        //선택된 아이템 테스트를 어레이 리스트로 넘기기
+                        ArrayList<RefrigeratorItem> ingredients = adapter.getCheckedItems();
 
+                        if(ingredients.size() > 0) {
                             Intent intent_RefriToAbleFood = new Intent(RefrigeratorActivity.this, AbleFoodListActivity.class);
                             intent_RefriToAbleFood.putExtra("INGREDIENTS", ingredients);
                             startActivityForResult(intent_RefriToAbleFood, 1);
+                        }else {
+                            Toast.makeText(getApplicationContext(), "아무것도 선택하지 않으셨습니다.", Toast.LENGTH_SHORT).show();
                         }
+                        btn_cookSecondClick = false;
+                        adapter.setCheckBoxVisibility(false);
+                        btnChangedInitialMode();
+                        break;
+                    case R.id.btn_choose:
+                        Toast.makeText(getApplicationContext(), Boolean.toString(btn_cookSecondClick), Toast.LENGTH_SHORT).show();
+                        if(btn_cookSecondClick == false) {
+                            //모든 리스트뷰 checkBox 활성화
+                            adapter.setCheckBoxVisibility(true);
+                            btnChangedChooseMode();
+                            btn_cookSecondClick = true;
+                        }
+                        else{
+                            adapter.setCheckBoxVisibility(false);
+                            btnChangedInitialMode();
+                            btn_cookSecondClick = false;
+                        }
+                        break;
+                    case R.id.btn_delete:
+                        //선택된 아이템 테스트를 어레이 리스트로 넘기기
+                        ArrayList<RefrigeratorItem> deleteItems = adapter.getCheckedItems();
+
+                        if(deleteItems.size() > 0) {
+                            for(int i = 0; i < deleteItems.size(); i++){
+                                adapter.removeItem(deleteItems.get(i));
+                            }
+                            adapter.dataChanged();
+                        }else {
+                            Toast.makeText(getApplicationContext(), "아무것도 선택하지 않으셨습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        btn_cookSecondClick = false;
+                        adapter.setCheckBoxVisibility(false);
+                        btnChangedInitialMode();
                         break;
                 }
             }
@@ -122,6 +150,8 @@ public class RefrigeratorActivity extends AppCompatActivity {
 
         btn_cook.setOnClickListener(listener);
         btn_add.setOnClickListener(listener);
+        btn_choose.setOnClickListener(listener);
+        btn_delete.setOnClickListener(listener);
     }
 
     @Override
@@ -137,7 +167,6 @@ public class RefrigeratorActivity extends AppCompatActivity {
                 int pos = intent.getIntExtra("POSITION", -1);
                 if (pos != -1) {
                     adapter.getItem(pos).setName(editItem.getName());
-                    adapter.getItem(pos).setValue(editItem.getValue());
                     adapter.getItem(pos).setAmount(editItem.getAmount());
                     adapter.getItem(pos).setDate(editItem.getDate());
                     adapter.getItem(pos).setImg(editItem.getImg());
@@ -153,5 +182,15 @@ public class RefrigeratorActivity extends AppCompatActivity {
 
             }
         }
+    }
+    public void btnChangedChooseMode(){
+        btn_cook.setVisibility(View.VISIBLE);
+        btn_add.setVisibility(View.GONE);
+        btn_delete.setVisibility(View.VISIBLE);
+    }
+    public void btnChangedInitialMode(){
+        btn_cook.setVisibility(View.GONE);
+        btn_add.setVisibility(View.VISIBLE);
+        btn_delete.setVisibility(View.GONE);
     }
 }
