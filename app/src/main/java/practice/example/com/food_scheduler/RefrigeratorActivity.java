@@ -59,7 +59,8 @@ public class RefrigeratorActivity extends AppCompatActivity {
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch(item.getItemId()){
                                     case R.id.optionMenu_addByBarcode://바코드로 추가
-                                        Toast.makeText(getApplicationContext(), "바코드로 아이템 추가", Toast.LENGTH_SHORT).show();
+                                        Intent intent_BarcodeAdd = new Intent(RefrigeratorActivity.this, BarcodeScannerActivity.class);
+                                        startActivityForResult(intent_BarcodeAdd, 0);
                                         //바코드로 아이템 추가 코드
                                         break;
                                     case R.id.optionMeue_addBySelf://직접추가
@@ -156,6 +157,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        System.out.println("onActivityResult 나온다");
         if(requestCode == 0) {//check this is result of add_mode or edit_mode
             int add_mode_set = 1, edit_mode_set = 2;
             if (resultCode == add_mode_set) {
