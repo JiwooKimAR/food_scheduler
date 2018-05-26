@@ -1,6 +1,7 @@
 package practice.example.com.food_scheduler;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -12,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class FoodMaker
 {
@@ -96,5 +98,21 @@ public class FoodMaker
             try{bw.close();}catch (Exception ex){}
             try{fw.close();}catch (Exception ex){}
         }
+    }
+
+    /* NOTIICE : 한번 테스트해볼라고 만든거야 이 주석 아래 있는거 지워도 됩니다!*/
+    static public ArrayList<AbleFoodItem> testGetAbleFood(Context context, Intent intent){
+        //재료 리스트가 담긴 인덴트 받아오고 꺼내기
+        ArrayList<RefrigeratorItem> ingredients = (ArrayList<RefrigeratorItem>)intent.getSerializableExtra("INGREDIENTS");
+
+        //리턴할 새로운 어레이 리스트 만들기
+        ArrayList<AbleFoodItem> ableFoodItems = new ArrayList<>();
+
+        //임시 데이터 ableFoodItems에 추가하기
+        //김치찜, 숫자, 재료리스트 아무거나
+        ableFoodItems.add(new AbleFoodItem("김치찜","48208",ingredients.get(0).getName()));
+        ableFoodItems.add(new AbleFoodItem("취나물무침","48205",ingredients.get(1).getName()));
+
+        return ableFoodItems;
     }
 }

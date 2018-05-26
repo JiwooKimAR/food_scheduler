@@ -3,18 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp">
-
-    <WebView
-        android:id="@+id/webView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true" />
-    <!--<TextView
-        android:id="@+id/able_food_item_ingredient"
+    <ImageView
+        android:id="@+id/img_able_food"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/able_food_item_name"
-        android:layout_alignLeft="@id/able_food_item_name"
-        android:text="date of item"
-        android:textSize="20dp"/>-->
+        android:layout_marginRight="10dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_launcher_background"/>
+
+    <TextView
+        android:id="@+id/name_able_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/img_able_food"
+        android:text="name"
+        android:textSize="25dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/ingredients_able_food"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="재료"
+        android:textSize="20dp"
+        android:layout_toRightOf="@+id/img_able_food"
+        android:layout_below="@id/name_able_food"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/ingredients_list_able_food"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingredients"
+        android:textSize="18dp"
+        android:layout_toRightOf="@+id/img_able_food"
+        android:layout_below="@id/ingredients_able_food"/>
 </RelativeLayout>

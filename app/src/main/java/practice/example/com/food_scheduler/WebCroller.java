@@ -19,6 +19,7 @@ import java.io.IOException;
  *
  */
 public class WebCroller extends AppCompatActivity {
+    /*
     int cnt = 0;
 
     private WebView wv1;
@@ -27,7 +28,7 @@ public class WebCroller extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.able_food_item);
 
-        wv1 = (WebView)findViewById(R.id.webView);
+        wv1 = (WebView)findViewById(R.id.webView_able_food);
         wv1.setWebChromeClient(new WebChromeClient());
 
         Intent intent = getIntent();
@@ -39,7 +40,7 @@ public class WebCroller extends AppCompatActivity {
         getW.execute();
         //Log.d("test","p4");
     }
-
+*/
 }
 
 class WebCroll extends AsyncTask<Void, Void, Void> {

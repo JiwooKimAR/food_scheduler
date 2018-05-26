@@ -9,11 +9,13 @@ import android.widget.TextView;
  */
 
 public class AbleFoodInfor {
-    public ImageView itemImageView;
-    public TextView itemNameView;
+    public ImageView ableFoodImgView;
+    public TextView ableFoodNameView;
+    public TextView ableFoodIngredientListView;
 
     public AbleFoodInfor(View root) {
-        itemImageView = root.findViewById(R.id.refrigerator_item_type_image);
-        itemNameView = root.findViewById(R.id.refrigerator_item_name);
+        ableFoodImgView = root.findViewById(R.id.img_able_food);
+        ableFoodNameView = root.findViewById(R.id.name_able_food);
+        ableFoodIngredientListView = root.findViewById(R.id.ingredients_list_able_food);
     }
 }
