@@ -1,6 +1,9 @@
 package practice.example.com.food_scheduler;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -59,12 +63,15 @@ public class ItemInfoActivity extends AppCompatActivity {
             String strDate = sdf.format(item.getDate().getTime());
             edit_itemDate.setText(strDate);
             edit_itemAmount.setText(item.getAmount());
-
+            if (item.getByteArray() != null) {
+                byte[] byteArr = item.getByteArray();
+                Bitmap bit = byteArrayToBitmap(byteArr);
+                img_item.setImageBitmap(bit);
+            } else { // 나중에도 이미지가 없을 수 있을까?
+                //picasso이용하여 해당 url의 그림 불러오기
+                Picasso.get().load("http://i.imgur.com/DvpvklR.png"/**/).placeholder(R.drawable.ic_type_image).into(img_item);
+            }
         }
-
-
-        //picasso이용하여 해당 url의 그림 불러오기
-        Picasso.get().load("http://i.imgur.com/DvpvklR.png"/**/).placeholder(R.drawable.ic_type_image).into(img_item);
 
         //버튼 클릭 리스너 만들기
         View.OnClickListener listener = new View.OnClickListener() {
@@ -76,6 +83,9 @@ public class ItemInfoActivity extends AppCompatActivity {
                         String name = edit_itemName.getText().toString();
                         String amount = edit_itemAmount.getText().toString();
                         Calendar date = Calendar.getInstance();
+                        BitmapDrawable bit_D = (BitmapDrawable) img_item.getDrawable();
+                        Bitmap bit = bit_D.getBitmap();
+                        byte[] byteArr = bitmapToByteArray(bit);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                         try {
                             date.setTime(sdf.parse(edit_itemDate.getText().toString()));
@@ -85,12 +95,13 @@ public class ItemInfoActivity extends AppCompatActivity {
 
                         //값 전달
                         if(!edit_mode) {//새로운 항목 만들어 인덴트에 추가하여 전달
-                            intent_ItemInfoToRefri.putExtra("ADDINFO", new RefrigeratorItem(name,amount,date,null));
+                            intent_ItemInfoToRefri.putExtra("ADDINFO", new RefrigeratorItem(name,amount,date,byteArr));
                             setResult(add_mode_set, intent_ItemInfoToRefri);
                         }
                         else {//기존 인덴트 속 아이템 꺼내와 변경하기
+                            // 수정하면 2017-12-09로 date 값 변경됨
                             intent_ItemInfoToRefri.putExtra("POSITION",intent.getIntExtra("POSITION",-1));
-                            intent_ItemInfoToRefri.putExtra("EDITINFO", new RefrigeratorItem(name,amount,date,null));
+                            intent_ItemInfoToRefri.putExtra("EDITINFO", new RefrigeratorItem(name,amount,date,byteArr));
                             setResult(edit_mode_set, intent_ItemInfoToRefri);
                         }
                         finish();
@@ -124,10 +135,22 @@ public class ItemInfoActivity extends AppCompatActivity {
                 }
             }
         };
-
         btn_ok.setOnClickListener(listener);
         btn_cancel.setOnClickListener(listener);
         img_item.setOnClickListener(listener);
+    }
 
+    public Bitmap byteArrayToBitmap(byte[] byteArray) {
+        Bitmap bitmap = null;
+        bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        byteArray = null;
+        return bitmap;
+    }
+
+    public byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
     }
 }

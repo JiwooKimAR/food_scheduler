@@ -1,6 +1,8 @@
 package practice.example.com.food_scheduler;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.SparseBooleanArray;
@@ -12,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,11 +72,13 @@ public class RefrigeratorAdapter extends ArrayAdapter<RefrigeratorItem>{
         String strDate = sdf.format(item.getDate().getTime());
         itemDateView.setText(strDate);
 
-        if(item.getImg() == null) {
+        if(item.getByteArray() == null) {
             itemImageView.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_type_image, null));
         }else{
             //사용자가 시정한 이미지 불러오기
-            itemImageView.setImageDrawable(item.getImg());
+            byte[] byteArr = item.getByteArray();
+            Bitmap img = byteArrayToBitmap(byteArr);
+            itemImageView.setImageBitmap(img);
         }
 
         itemCheckBox.setChecked(false);
@@ -143,5 +146,12 @@ public class RefrigeratorAdapter extends ArrayAdapter<RefrigeratorItem>{
             for(int position = 0; position < datas.size(); position++)
                 datas.get(position).setShowCheckBox(false);
         dataChanged();
+    }
+
+    public Bitmap byteArrayToBitmap(byte[] byteArray) {
+        Bitmap bitmap = null;
+        bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        byteArray = null;
+        return bitmap;
     }
 }

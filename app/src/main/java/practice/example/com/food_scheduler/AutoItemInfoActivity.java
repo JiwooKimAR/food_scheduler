@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +20,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -73,11 +69,12 @@ public class AutoItemInfoActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        BitmapDrawable EIA_B = (BitmapDrawable)productImage.getDrawable();
-                        Drawable EIA = EIA_B; // 이미지 오류남
+                        BitmapDrawable EIA_BD = (BitmapDrawable)productImage.getDrawable();
+                        Bitmap EIA_B = EIA_BD.getBitmap();
+                        byte[] EIA = bitmapToByteArray(EIA_B);
 
                         Intent intent = new Intent();
-                        intent.putExtra("ADDINFO", new RefrigeratorItem(ENA, EWA, date, null)); // 이미지를 null로 하니 오류 해결, 왜지?
+                        intent.putExtra("ADDINFO", new RefrigeratorItem(ENA, EWA, date, EIA));
                         System.out.println("ADDINFO 성공");
                         setResult(add_mode_set, intent);
                         System.out.println("RefrigeratorActivity로 가는거 성공");
@@ -200,7 +197,6 @@ public class AutoItemInfoActivity extends AppCompatActivity {
             if (img != null) {
                 ImageView productImage = findViewById(R.id.img_item);
                 productImage.setImageBitmap(img);
-                // saveBitmaptoJpeg(img, img_save_path, img_name); // 이미지 저장은 가능하나, 그 디렉토리를 어디로 둬야 할지 모르겠음.
             }
             else {
                 // 사진 없음
@@ -222,36 +218,17 @@ public class AutoItemInfoActivity extends AppCompatActivity {
         }
     }
 
-    // 비트맵을 다른 확장자 사진 파일로 저장하는 합수, 파일 저장 경로를 알아야 함.
-    public static void saveBitmaptoJpeg(Bitmap bitmap, String folder, String name) {
-        //String ex_storage =Environment.getExternalStorageDirectory().getAbsolutePath();
-        // Get Absolute Path in External Sdcard
-        //String foler_name = "/"+folder+"/";
-        String file_name = name + ".jpg";
-        //String string_path = ex_storage+foler_name;
-
-        File file_path;
-        try {
-            file_path = new File(folder + "/");
-            if (!file_path.isDirectory()) {
-                file_path.mkdirs();
-            }
-            FileOutputStream out = new FileOutputStream(folder + "/" + file_name);
-
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.close();
-
-        } catch (FileNotFoundException exception) {
-            Log.e("FileNotFoundException", exception.getMessage());
-        } catch (IOException exception) {
-            Log.e("IOException", exception.getMessage());
-        }
-    }
-
     public static boolean isNumber(char A) {
         if (A == '0' || A == '1' || A == '2' || A == '3' || A == '4' || A == '5'
                 || A == '6' || A == '7' || A == '8' || A == '9' || A == '\0')
             return false;
         return true;
+    }
+
+    public byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
     }
 }

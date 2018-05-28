@@ -171,7 +171,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
                     adapter.getItem(pos).setName(editItem.getName());
                     adapter.getItem(pos).setAmount(editItem.getAmount());
                     adapter.getItem(pos).setDate(editItem.getDate());
-                    adapter.getItem(pos).setImg(editItem.getImg());
+                    adapter.getItem(pos).setByteArray(editItem.getByteArray());
                 } else Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
                 adapter.dataChanged();
             }
