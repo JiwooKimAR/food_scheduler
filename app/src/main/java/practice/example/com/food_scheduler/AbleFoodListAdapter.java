@@ -24,21 +24,12 @@ public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
 
     AbleFoodListAdapter(Context con, int ri, Intent intent) {
         super(con, ri);
+
+        //FoodMaker maker = new FoodMaker(getApplicationContext());
+
         context = con;
         resId = ri;
-        //this.datas = datas;
-        this.datas = FoodMaker.testGetAbleFood(context, intent);
-        /*NOTICE 경연아
-        this.data = FoodMaker.getFoodList(intent) 넘기면 return 값이 arraylist여야하는데 FoodMaker보니깐 그렇게 안한거 같아! 수정요함
-        !!인자값에 일단 인덴트가 없어
-        !!리턴값이 void야
-        함수 안에서
-
-        ArrayList<RefrigeratorItem> ingredients = (ArrayList<RefrigeratorItem>)intent.getSerializableExtra("INGREDIENTS");
-        하면 재료가 담긴 arraylist 넘겼어
-
-        테스트를 위해 FoodMaker에 testGetAboleFood 만든거~
-        */
+        //this.datas = maker.Find(intent);
     }
 
     @Override
@@ -51,32 +42,24 @@ public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            Log.d("test","pt2 5");
             convertView = inflater.inflate(resId, null);
-            Log.d("test","pt2 6");
             AbleFoodInfor holder = new AbleFoodInfor(convertView);
-            Log.d("test","pt2 7");
             convertView.setTag(holder);
-            Log.d("test","pt2 8");
         }
 
-        Log.d("test","pt2");
         AbleFoodInfor holder = (AbleFoodInfor)convertView.getTag();
 
-        Log.d("test","pt3");
         //ImageView ableFoodImgView = holder.ableFoodImgView;
         TextView ableFoodNameView = holder.ableFoodNameView;
         TextView ableFoodIngredientListView = holder.ableFoodIngredientListView;
 
-        Log.d("test","pt4");
-        AbleFoodItem ableFoodItem = datas.get(position);
 
-        Log.d("test","pt5");
+        AbleFoodItem ableFoodItem = datas.get(position);
         ableFoodNameView.setText(ableFoodItem.getFoodName());
+
         //ableFoodImgView.setImageBitmap(ableFoodItem.getFoodImgView());
         ableFoodIngredientListView.setText(ableFoodItem.getFoodIngredientList());
 
-        Log.d("test","t6");
         return convertView;
     }
     @Override
@@ -90,6 +73,8 @@ public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
     }
     public void addItem(AbleFoodItem item){
         datas.add(item);
+
+
     }
 
     public void getNumAbleFood(){
