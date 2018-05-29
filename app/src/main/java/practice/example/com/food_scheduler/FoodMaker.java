@@ -29,7 +29,13 @@ public class FoodMaker
     {
         ArrayList<RefrigeratorItem> ingredients = (ArrayList<RefrigeratorItem>) intent.getSerializableExtra("INGREDIENTS");
 
-        String[] Item = ingredients.toArray(new String[ingredients.size()]);
+        String[] Item = new String[ingredients.size()];
+        for (int i = 0; i < ingredients.size(); i++)
+            Item[i] = ingredients.get(i).getName();
+
+        // Item[0] = "생강";
+        // Item[1] = "마늘";
+
         HashMap<String, Food> hash = new HashMap<>();
         ArrayList<AbleFoodItem> items = new ArrayList<>();
         for(int i = 0; i < foods.size(); i++)
