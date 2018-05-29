@@ -25,11 +25,11 @@ public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
     AbleFoodListAdapter(Context con, int ri, Intent intent) {
         super(con, ri);
 
-        //FoodMaker maker = new FoodMaker(getApplicationContext());
+        FoodMaker maker = new FoodMaker(con);
 
         context = con;
         resId = ri;
-        //this.datas = maker.Find(intent);
+        this.datas = maker.Find(intent);
     }
 
     @Override
