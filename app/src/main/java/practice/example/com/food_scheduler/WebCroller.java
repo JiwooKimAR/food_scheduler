@@ -57,7 +57,7 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();//Log.d("test","p3");
+        super.onPreExecute();
     }
 
     @Override
@@ -82,9 +82,6 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        //WebView wv1 = (WebView)findViewbyId(R.id.webView);
-
-        //Log.d("test","pp3");
         wv1.loadData(htmlContentInStringFormat.trim(), "text/html; charset=utf-8", null);
         System.out.println(htmlContentInStringFormat);
     }

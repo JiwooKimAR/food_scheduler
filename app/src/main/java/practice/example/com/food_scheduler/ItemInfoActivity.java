@@ -109,7 +109,6 @@ public class ItemInfoActivity extends AppCompatActivity {
                     case R.id.btn_itemInfo_cancel:
                         //refrigeratorActivity로
                         finish();
-                        Toast.makeText(getApplicationContext(),"아이템 refrigeratorActivity로",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.img_item:
                         //팝업창 띄우기(카메라 연결하여 사진찍기 또는 앨범연결)

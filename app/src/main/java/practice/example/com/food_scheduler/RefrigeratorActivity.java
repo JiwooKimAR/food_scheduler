@@ -87,7 +87,6 @@ public class RefrigeratorActivity extends AppCompatActivity {
                         btnChangedInitialMode();
                         break;
                     case R.id.btn_choose:
-                        Toast.makeText(getApplicationContext(), Boolean.toString(btn_cookSecondClick), Toast.LENGTH_SHORT).show();
                         if(btn_cookSecondClick == false) {
                             //모든 리스트뷰 checkBox 활성화
                             adapter.setCheckBoxVisibility(true);
@@ -135,18 +134,6 @@ public class RefrigeratorActivity extends AppCompatActivity {
             }
         });
 
-        //아이템 길게 누를시 라디오 버튼
-        listView_refrigerator.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("myTag", "fired");
-                //radio button으로 바뀌기
-                Toast.makeText(RefrigeratorActivity.this,"라디오버튼으로 바뀝니다",Toast.LENGTH_SHORT);
-                return true;
-            }
-        });
-
-
         btn_cook.setOnClickListener(listener);
         btn_add.setOnClickListener(listener);
         btn_choose.setOnClickListener(listener);
@@ -159,7 +146,6 @@ public class RefrigeratorActivity extends AppCompatActivity {
         //check this is result of add_mode or edit_mode
         int add_mode_set = 1, edit_mode_set = 2;
         if (resultCode == add_mode_set) {
-            Toast.makeText(this, "Comebakc", Toast.LENGTH_SHORT).show();
             adapter.addItem((RefrigeratorItem) intent.getSerializableExtra("ADDINFO"));
             adapter.dataChanged();
         } else if (resultCode == edit_mode_set) {

@@ -25,8 +25,6 @@ public class AbleFoodListActivity extends AppCompatActivity {
         Intent intentFromRefrigerator = getIntent();
         adapter  = new AbleFoodListAdapter(this, R.layout.able_food_item,intentFromRefrigerator);
 
-        //Toast.makeText(getApplicationContext(), adapter.getCount(), Toast.LENGTH_SHORT).show();
-
         listView_ableFood.setAdapter(adapter);
         listView_ableFood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
