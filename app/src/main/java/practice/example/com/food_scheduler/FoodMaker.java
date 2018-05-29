@@ -14,27 +14,46 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FoodMaker
-{
-    public static String path = "/files/foodlists.txt";
+{public static String path = "/files/foodlists.txt";
 
+    ArrayList<Food> foods = null;
     public FoodMaker(Context context)
     {
+        foods = getFoodList(context);
+    }
 
+    public ArrayList<AbleFoodItem> Find(Intent intent)
+    {
+        ArrayList<RefrigeratorItem> ingredients = (ArrayList<RefrigeratorItem>) intent.getSerializableExtra("INGREDIENTS");
+
+        String[] Item = ingredients.toArray(new String[ingredients.size()]);
+        HashMap<String, Food> hash = new HashMap<>();
+        ArrayList<AbleFoodItem> items = new ArrayList<>();
+        for(int i = 0; i < foods.size(); i++)
+        {
+            boolean Flag = true;
+            Food a = foods.get(i);
+            for(int j = 0; j < Item.length; j++) Flag &= a.Item.indexOf(Item[j]) > -1;
+            if(Flag &&!hash.containsKey(a.Id)){hash.put(a.getId(), a); items.add(a.getAbleFoodItem());}
+        }
+        return items;
     }
 
 
-    public static String getFoodList(Context context)
+    public static ArrayList<Food> getFoodList(Context context)
     {
         FileReader fr = null;
         BufferedReader br = null;
         String data = null;
+        ArrayList<Food> food = new ArrayList<>();
         try
         {
             File file = new File(path);
             // read file.
-            StringBuilder sb = new StringBuilder();
+            //StringBuilder sb = new StringBuilder();
 
             if(file.exists())
             {
@@ -45,9 +64,10 @@ public class FoodMaker
                 while ((data = br.readLine()) != null)
                 {
                     //1줄씩 읽어옴 (data 변수)
-                    sb.append(data).append("\n");
+                    //sb.append(data).append("\n");
+                    food.add(new Food(data));
                 }
-                return sb.toString();
+                //return sb.toString();
             }
             else
             {
@@ -58,16 +78,16 @@ public class FoodMaker
                 while ((data = br.readLine()) != null)
                 {
                     //1줄씩 읽어옴 (data 변수)
-                    sb.append(data).append("\n");
-                    //String splitData[] = data.split("::");
+                    //sb.append(data).append("\n");
+                    food.add(new Food(data));
                 }
 
                 reader.close();
                 inputStream.close();
 
-                String data1 = sb.toString();
-                setFoodList(data1);
-                return data1;
+                //String data1 = sb.toString();
+                //setFoodList(data1);
+                return food;
             }
         }
         catch (Exception ex) {Log.e("FOODLIST", "음식 목록을 가져오는중 오류가 발생했습니다.", ex);}
@@ -99,4 +119,5 @@ public class FoodMaker
             try{fw.close();}catch (Exception ex){}
         }
     }
+
 }
