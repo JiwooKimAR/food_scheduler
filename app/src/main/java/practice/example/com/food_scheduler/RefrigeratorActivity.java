@@ -31,8 +31,6 @@ public class RefrigeratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refrigerator);
 
-        String text = FoodMaker.getFoodList(getApplicationContext());
-
         //어댑터 만들고 초기 데이터 설정
         adapter  = new RefrigeratorAdapter(this, R.layout.refrigerator_item, new ArrayList<RefrigeratorItem>());
         adapter.initForTest();//초기화용 테스트용
@@ -80,7 +78,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
                         if(ingredients.size() > 0) {
                             Intent intent_RefriToAbleFood = new Intent(RefrigeratorActivity.this, AbleFoodListActivity.class);
                             intent_RefriToAbleFood.putExtra("INGREDIENTS", ingredients);
-                            startActivityForResult(intent_RefriToAbleFood, 1);
+                            startActivity(intent_RefriToAbleFood);
                         }else {
                             Toast.makeText(getApplicationContext(), "아무것도 선택하지 않으셨습니다.", Toast.LENGTH_SHORT).show();
                         }
@@ -158,31 +156,22 @@ public class RefrigeratorActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         System.out.println("onActivityResult 나온다");
-        if(requestCode == 0) {//check this is result of add_mode or edit_mode
-            int add_mode_set = 1, edit_mode_set = 2;
-            if (resultCode == add_mode_set) {
-                Toast.makeText(this, "Comebakc", Toast.LENGTH_SHORT).show();
-                adapter.addItem((RefrigeratorItem) intent.getSerializableExtra("ADDINFO"));
-                adapter.dataChanged();
-            } else if (resultCode == edit_mode_set) {
-                RefrigeratorItem editItem = (RefrigeratorItem) intent.getSerializableExtra("EDITINFO");
-                int pos = intent.getIntExtra("POSITION", -1);
-                if (pos != -1) {
-                    adapter.getItem(pos).setName(editItem.getName());
-                    adapter.getItem(pos).setAmount(editItem.getAmount());
-                    adapter.getItem(pos).setDate(editItem.getDate());
-                    adapter.getItem(pos).setByteArray(editItem.getByteArray());
-                } else Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-                adapter.dataChanged();
-            }
-        }
-        else if(requestCode == 1){//check this is result of completeCooking_mode or cancelCooking_mode
-            int completeCooking_mode = 1, cancelCooking_mode = 2;
-            if(resultCode == completeCooking_mode) {
-
-            }else if (resultCode == cancelCooking_mode) {
-
-            }
+        //check this is result of add_mode or edit_mode
+        int add_mode_set = 1, edit_mode_set = 2;
+        if (resultCode == add_mode_set) {
+            Toast.makeText(this, "Comebakc", Toast.LENGTH_SHORT).show();
+            adapter.addItem((RefrigeratorItem) intent.getSerializableExtra("ADDINFO"));
+            adapter.dataChanged();
+        } else if (resultCode == edit_mode_set) {
+            RefrigeratorItem editItem = (RefrigeratorItem) intent.getSerializableExtra("EDITINFO");
+            int pos = intent.getIntExtra("POSITION", -1);
+            if (pos != -1) {
+                adapter.getItem(pos).setName(editItem.getName());
+                adapter.getItem(pos).setAmount(editItem.getAmount());
+                adapter.getItem(pos).setDate(editItem.getDate());
+                adapter.getItem(pos).setByteArray(editItem.getByteArray());
+            } else Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            adapter.dataChanged();
         }
     }
     public void btnChangedChooseMode(){
@@ -190,6 +179,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
         btn_add.setVisibility(View.GONE);
         btn_delete.setVisibility(View.VISIBLE);
     }
+
     public void btnChangedInitialMode(){
         btn_cook.setVisibility(View.GONE);
         btn_add.setVisibility(View.VISIBLE);

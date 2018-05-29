@@ -2,6 +2,8 @@ package practice.example.com.food_scheduler;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,24 +20,20 @@ public class AbleFoodItem {
 
     AbleFoodItem(String foodName, String foodNum, String foodIngredientList) {
 
-        /*
-        NOTICE
-        FoodMaker에서 파일을 읽고 이 클래스를 단위로 하는 arraylist만들거잖아
-        생성자에 파일로 읽은 음식이름, 음식 숫자, 음식 재료 리스트를 넘겨서 추가해놓아주라~~
-        이해안되거나 어려운거 있음 말해줘!
-         */
         this.foodName = foodName;
         this.foodNum = foodNum;
         this.foodIngredientList = foodIngredientList;
 
-        File imgpath = new File("/data/data/practice.example.com.food_scheduler/res" + foodNum + ".jpg");
+        // NOTICE  : 성희 파일 주소 수정 요함
+        File imgpath = new File("/drawable/f" + foodNum + ".jpg");
         if (imgpath.exists()) {
+            Log.d("test","yes");
             foodImg = BitmapFactory.decodeFile(imgpath.getAbsolutePath());
 
         } else {
+            Log.d("test","no");
             foodImg = null;
         }
-        //NOTICE : 원래 음식 재료 리스트 받아오는 장소 어디니?? 여기 맞아??
     }
 
     public String getFoodName() { return foodName; }
