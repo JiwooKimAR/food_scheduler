@@ -4,30 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background='@drawable/home_tmp'
     tools:context="practice.example.com.food_scheduler.HomeActivity"
-    android:gravity="center">
+    android:gravity="bottom">
 
     <Button
         android:id="@+id/btn_refrigerator"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:text="냉장고"
-        android:textSize="20dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/refrigerator"
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/btn_calendar"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_refrigerator"
-        android:text="캘린더"
-        android:textSize="20dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/schedular"
+        android:textSize="20dp" />
+
     <Button
         android:id="@+id/btn_help"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_calendar"
-        android:text="도움말"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/questionmark"
         android:textSize="20dp" />
 </RelativeLayout>

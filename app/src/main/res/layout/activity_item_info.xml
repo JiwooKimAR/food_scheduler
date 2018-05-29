@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/img_item"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -82,12 +91,6 @@
                 android:textSize="@dimen/ItemInfoTextSize"/>
         </LinearLayout>
     </LinearLayout>
-    <ImageView
-        android:id="@+id/img_item"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:clickable="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -100,7 +103,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:text="확인"
             />
         <View
@@ -111,7 +114,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:text="취소"/>
     </LinearLayout>
 

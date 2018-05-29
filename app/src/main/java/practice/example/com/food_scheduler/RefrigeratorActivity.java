@@ -31,7 +31,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refrigerator);
 
-        String text = FoodMaker.getFoodList(getApplicationContext());
+        String text = FoodMaker.getFoodList(getApplicationContext()).toString();
 
         //어댑터 만들고 초기 데이터 설정
         adapter  = new RefrigeratorAdapter(this, R.layout.refrigerator_item, new ArrayList<RefrigeratorItem>());

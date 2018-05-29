@@ -28,7 +28,7 @@ public class AbleFoodItem {
         this.foodNum = foodNum;
         this.foodIngredientList = foodIngredientList;
 
-        File imgpath = new File("/data/data/practice.example.com.food_scheduler/res" + foodNum + ".jpg");
+        File imgpath = new File("@drawable/f" + foodNum + ".jpg");
         if (imgpath.exists()) {
             foodImg = BitmapFactory.decodeFile(imgpath.getAbsolutePath());
 
