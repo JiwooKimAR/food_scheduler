@@ -35,6 +35,7 @@ public class WebCroller extends AppCompatActivity {
 
         Intent intent = getIntent();
         String FoodNum = intent.getStringExtra("FOODNAME_KEY");
+        System.out.println(FoodNum + "-2");
 
         StringBuffer strB = new StringBuffer();
         WebCroll getW = new WebCroll(wv1, FoodNum);
@@ -44,7 +45,7 @@ public class WebCroller extends AppCompatActivity {
 
 class WebCroll extends AsyncTask<Void, Void, Void> {
 
-    private String htmlPageUrl = "http://terms.naver.com/entry.nhn?docId=1988371&cid=48164&categoryId="; //파싱할 홈페이지의 URL주소
+    private String htmlPageUrl = "http://terms.naver.com/entry.nhn?docId="; //파싱할 홈페이지의 URL주소
     // private TextView textviewHtmlDocument;
     private String htmlContentInStringFormat = "";
     private String urlNum = "";
@@ -53,6 +54,7 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
     WebCroll(WebView wv, String foodNum) {
         urlNum = foodNum;
         wv1 = wv;
+        System.out.println(foodNum + "-3");
     }
 
     @Override
@@ -64,7 +66,7 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         try {
 
-            Document doc = Jsoup.connect(htmlPageUrl + urlNum).get();
+            Document doc = Jsoup.connect(htmlPageUrl + urlNum + "&cid=48164&categoryId=48208").get();
 
             Elements titles = doc.select("div.size_ct_v2");
             System.out.println("-------------------------------------------------------------");

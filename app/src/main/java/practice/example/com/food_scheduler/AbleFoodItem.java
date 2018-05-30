@@ -23,7 +23,7 @@ public class AbleFoodItem {
         this.foodName = foodName;
         this.foodNum = foodNum;
         this.foodIngredientList = foodIngredientList;
-
+        System.out.println(foodNum + "-1");
         // NOTICE  : 성희 파일 주소 수정 요함
         File imgpath = new File("/drawable/f" + foodNum + ".jpg");
         if (imgpath.exists()) {
