@@ -117,9 +117,9 @@ public class RefrigeratorAdapter extends ArrayAdapter<RefrigeratorItem>{
         //1개의 데이터 추가
         Calendar calendar = Calendar.getInstance();
         calendar.set(2018, 4,05);
-        datas.add(new RefrigeratorItem("계란", "30개" , calendar, null));
+        datas.add(new RefrigeratorItem("김치", "1통" , calendar, null));
         calendar.set(2018, 8,23);
-        datas.add(new RefrigeratorItem("빼빼로", "1통", calendar, null));
+        datas.add(new RefrigeratorItem("된장", "1팩", calendar, null));
     }
 
     public void dataChanged(){

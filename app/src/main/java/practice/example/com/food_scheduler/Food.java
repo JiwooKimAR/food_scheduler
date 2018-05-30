@@ -1,6 +1,5 @@
 package practice.example.com.food_scheduler;
 
-
 import java.util.ArrayList;
 
 import practice.example.com.food_scheduler.AbleFoodItem;
@@ -26,6 +25,13 @@ public class Food {
             else list.add(a.substring(a.lastIndexOf("||") + 2));
 
             Items = list;
+
+            String[] temp = list.toArray(new String[list.size()]);
+
+            IngredientItem = temp[0];
+            for (int i = 1; i < list.size(); i++)
+                IngredientItem += ", " + temp[i];
+
             //split가 말을 안들음
             //food.Items = splitData[2].split("||");
         } catch (Exception ex) {
@@ -49,6 +55,7 @@ public class Food {
     public String Name;
     public ArrayList<String> Items;
     public String Item;
+    public String IngredientItem = null;
 
     public String getId() {
         return Id;
@@ -75,7 +82,7 @@ public class Food {
     }
 
     public AbleFoodItem getAbleFoodItem() {
-        return new AbleFoodItem(Id, Name, new String());//변경
+        return new AbleFoodItem(Name, Id, IngredientItem);//변경
     }
 
     @Override

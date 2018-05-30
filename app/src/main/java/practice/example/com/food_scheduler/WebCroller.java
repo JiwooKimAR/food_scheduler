@@ -18,17 +18,19 @@ import java.io.IOException;
  * Created by 류성희 on 2018-05-09.
  *
  */
+
+// NOTICE : 전혀 이상한 음시과 매칭;;
 public class WebCroller extends AppCompatActivity {
-    /*
+
     int cnt = 0;
 
     private WebView wv1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.able_food_item);
+        setContentView(R.layout.recipe_web_activity);
 
-        wv1 = (WebView)findViewById(R.id.webView_able_food);
+        wv1 = (WebView)findViewById(R.id.recipe_webView);
         wv1.setWebChromeClient(new WebChromeClient());
 
         Intent intent = getIntent();
@@ -36,11 +38,8 @@ public class WebCroller extends AppCompatActivity {
 
         StringBuffer strB = new StringBuffer();
         WebCroll getW = new WebCroll(wv1, FoodNum);
-        //Log.d("test","p1");
         getW.execute();
-        //Log.d("test","p4");
     }
-*/
 }
 
 class WebCroll extends AsyncTask<Void, Void, Void> {
@@ -58,7 +57,7 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();//Log.d("test","p3");
+        super.onPreExecute();
     }
 
     @Override
@@ -83,9 +82,6 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        //WebView wv1 = (WebView)findViewbyId(R.id.webView);
-
-        //Log.d("test","pp3");
         wv1.loadData(htmlContentInStringFormat.trim(), "text/html; charset=utf-8", null);
         System.out.println(htmlContentInStringFormat);
     }

@@ -16,10 +16,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FoodMaker
-{public static String path = "/files/foodlists.txt";
+public class FoodMaker {
+    public static String path = "/files/foodlists.txt";
 
     ArrayList<Food> foods = null;
+
     public FoodMaker(Context context)
     {
         foods = getFoodList(context);
@@ -29,7 +30,11 @@ public class FoodMaker
     {
         ArrayList<RefrigeratorItem> ingredients = (ArrayList<RefrigeratorItem>) intent.getSerializableExtra("INGREDIENTS");
 
-        String[] Item = ingredients.toArray(new String[ingredients.size()]);
+        String[] Item = new String[ingredients.size()];
+
+        for(int i = 0; i < ingredients.size(); i++)
+            Item[i] = ingredients.get(i).getName();
+
         HashMap<String, Food> hash = new HashMap<>();
         ArrayList<AbleFoodItem> items = new ArrayList<>();
         for(int i = 0; i < foods.size(); i++)

@@ -3,6 +3,7 @@ package practice.example.com.food_scheduler;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -22,11 +23,9 @@ public class AbleFoodListActivity extends AppCompatActivity {
         listView_ableFood = findViewById(R.id.able_food_listview);
 
         Intent intentFromRefrigerator = getIntent();
-
         adapter  = new AbleFoodListAdapter(this, R.layout.able_food_item,intentFromRefrigerator);
-        adapter.getNumAbleFood();
+
         listView_ableFood.setAdapter(adapter);
-/* 무슨 소리이진;;;;
         listView_ableFood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -35,7 +34,5 @@ public class AbleFoodListActivity extends AppCompatActivity {
                 startActivityForResult(goCroll,0);
             }
         });
-*/
     }
-
 }

@@ -2,15 +2,18 @@ package practice.example.com.food_scheduler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -49,16 +52,15 @@ public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
 
         AbleFoodInfor holder = (AbleFoodInfor)convertView.getTag();
 
-        //ImageView ableFoodImgView = holder.ableFoodImgView;
+        ImageView ableFoodImgView = holder.ableFoodImgView;
         TextView ableFoodNameView = holder.ableFoodNameView;
         TextView ableFoodIngredientListView = holder.ableFoodIngredientListView;
 
-
         AbleFoodItem ableFoodItem = datas.get(position);
-        ableFoodNameView.setText(ableFoodItem.getFoodName());
 
-        //ableFoodImgView.setImageBitmap(ableFoodItem.getFoodImgView());
+        ableFoodNameView.setText(ableFoodItem.getFoodName());
         ableFoodIngredientListView.setText(ableFoodItem.getFoodIngredientList());
+        ableFoodImgView.setImageBitmap(ableFoodItem.getFoodImgView());
 
         return convertView;
     }
@@ -73,11 +75,5 @@ public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
     }
     public void addItem(AbleFoodItem item){
         datas.add(item);
-
-
-    }
-
-    public void getNumAbleFood(){
-        Toast.makeText(context, datas.get(0).getFoodName() + " " + datas.get(1).getFoodIngredientList(),Toast.LENGTH_SHORT).show();
     }
 }
