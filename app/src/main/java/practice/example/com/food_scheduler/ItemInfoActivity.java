@@ -83,10 +83,12 @@ public class ItemInfoActivity extends AppCompatActivity {
                         String name = edit_itemName.getText().toString();
                         String amount = edit_itemAmount.getText().toString();
                         Calendar date = Calendar.getInstance();
+
                         BitmapDrawable bit_D = (BitmapDrawable) img_item.getDrawable();
                         Bitmap bit = bit_D.getBitmap();
                         byte[] byteArr = bitmapToByteArray(bit);
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         try {
                             date.setTime(sdf.parse(edit_itemDate.getText().toString()));
                         } catch (ParseException e) {
