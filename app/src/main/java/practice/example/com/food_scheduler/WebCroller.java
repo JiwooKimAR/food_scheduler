@@ -81,7 +81,7 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        if(htmlContentInStringFormat.trim().contains("enlarge_button")) htmlContentInStringFormat = htmlContentInStringFormat.split("이미지 크게보기</a>")[1];
+        if(htmlContentInStringFormat.trim().contains("oncontextmenu=\"\"></a>")) htmlContentInStringFormat = htmlContentInStringFormat.split("oncontextmenu=\"\"></a>")[1];
         wv1.loadData(htmlContentInStringFormat.trim(), "text/html; charset=utf-8", null);
         //System.out.println("onPostExecute--" + htmlContentInStringFormat.trim());
     }
