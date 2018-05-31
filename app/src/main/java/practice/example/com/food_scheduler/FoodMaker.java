@@ -41,8 +41,21 @@ public class FoodMaker {
         {
             boolean Flag = true;
             Food a = foods.get(i);
-            for(int j = 0; j < Item.length; j++) Flag &= a.Item.indexOf(Item[j]) > -1;
-            if(Flag &&!hash.containsKey(a.Id)){hash.put(a.getId(), a); items.add(a.getAbleFoodItem());}
+
+            boolean mainIngre = false;
+            String []temp = a.getItems().toArray(new String[a.getItems().size()]);
+            for (int j = 0; j < Item.length; j++)
+                if (temp[0].equals(Item[j]))
+                    mainIngre = true;
+            if (!mainIngre)
+                continue;
+            for(int j = 0; j < Item.length; j++)
+                Flag &= a.Item.indexOf(Item[j]) > -1;
+            if(Flag &&!hash.containsKey(a.Id))
+            {
+                hash.put(a.getId(), a);
+                items.add(a.getAbleFoodItem());
+            }
         }
         return items;
     }

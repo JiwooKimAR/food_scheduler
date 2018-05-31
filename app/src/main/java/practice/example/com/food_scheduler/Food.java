@@ -32,8 +32,6 @@ public class Food {
             for (int i = 1; i < list.size(); i++)
                 IngredientItem += ", " + temp[i];
 
-            //split가 말을 안들음
-            //food.Items = splitData[2].split("||");
         } catch (Exception ex) {
         }
     }
@@ -60,6 +58,7 @@ public class Food {
     public String getId() {
         return Id;
     }
+
 
     public void setId(String id) {
         Id = id;
