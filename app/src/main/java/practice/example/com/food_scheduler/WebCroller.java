@@ -50,7 +50,6 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
     private String htmlContentInStringFormat = "";
     private String urlNum = "";
     private WebView wv1;
-
     WebCroll(WebView wv, String foodNum) {
         urlNum = foodNum;
         wv1 = wv;
@@ -71,8 +70,6 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
             Elements titles = doc.select("div.size_ct_v2");
             System.out.println("-------------------------------------------------------------");
             for (Element e : titles) {
-                System.out.println("title: " + e.text());
-
                 htmlContentInStringFormat += e.html().trim() + "\n";
             }
 
@@ -84,7 +81,8 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
+        if(htmlContentInStringFormat.trim().contains("enlarge_button")) htmlContentInStringFormat = htmlContentInStringFormat.split("이미지 크게보기</a>")[1];
         wv1.loadData(htmlContentInStringFormat.trim(), "text/html; charset=utf-8", null);
-        System.out.println(htmlContentInStringFormat);
+        //System.out.println("onPostExecute--" + htmlContentInStringFormat.trim());
     }
 }
