@@ -2,18 +2,14 @@ package practice.example.com.food_scheduler;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +19,7 @@ import java.util.ArrayList;
 public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
     Context context;
     int resId;
-    private ArrayList<AbleFoodItem> datas;
+    private ArrayList<AbleFoodItem> data;
 
     AbleFoodListAdapter(Context con, int ri, Intent intent) {
         super(con, ri);
@@ -32,12 +28,12 @@ public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
 
         context = con;
         resId = ri;
-        this.datas = maker.Find(intent);
+        this.data = maker.Find(intent);
     }
 
     @Override
     public int getCount() {
-        return datas.size();
+        return data.size();
     }
 
     @Override
@@ -46,27 +42,28 @@ public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resId, null);
-            AbleFoodInfor holder = new AbleFoodInfor(convertView);
+            AbleFoodInfo holder = new AbleFoodInfo(convertView);
             convertView.setTag(holder);
         }
 
-        AbleFoodInfor holder = (AbleFoodInfor)convertView.getTag();
+        AbleFoodInfo holder = (AbleFoodInfo)convertView.getTag();
 
         ImageView ableFoodImgView = holder.ableFoodImgView;
         TextView ableFoodNameView = holder.ableFoodNameView;
         TextView ableFoodIngredientListView = holder.ableFoodIngredientListView;
 
-        AbleFoodItem ableFoodItem = datas.get(position);
+        AbleFoodItem ableFoodItem = data.get(position);
 
         ableFoodNameView.setText(ableFoodItem.getFoodName());
         ableFoodIngredientListView.setText(ableFoodItem.getFoodIngredientList());
-        ableFoodImgView.setImageBitmap(ableFoodItem.getFoodImgView());
+
+        ableFoodImgView.setImageResource(ableFoodItem.getFoodImageResource(ableFoodImgView));
 
         return convertView;
     }
     @Override
     public AbleFoodItem getItem(int position) {
-        return datas.get(position);
+        return data.get(position);
     }
 
     @Override
@@ -74,6 +71,6 @@ public class AbleFoodListAdapter extends ArrayAdapter<AbleFoodItem> {
         return position;
     }
     public void addItem(AbleFoodItem item){
-        datas.add(item);
+        data.add(item);
     }
 }

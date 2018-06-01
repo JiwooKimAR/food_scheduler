@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import practice.example.com.food_scheduler.AbleFoodItem;
 
 public class Food {
+
     public Food(String FoodString) {
         try {
             String splitData[] = FoodString.split("::");

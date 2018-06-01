@@ -31,6 +31,9 @@ public class RefrigeratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refrigerator);
 
+        // Debug
+        Log.i("RefAct", getPackageName());
+
         //어댑터 만들고 초기 데이터 설정
         adapter  = new RefrigeratorAdapter(this, R.layout.refrigerator_item, new ArrayList<RefrigeratorItem>());
         adapter.initForTest();//초기화용 테스트용

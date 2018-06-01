@@ -116,10 +116,14 @@ public class RefrigeratorAdapter extends ArrayAdapter<RefrigeratorItem>{
     public void initForTest(){//처음에 파일 읽어오기
         //1개의 데이터 추가
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2018, 4,05);
+        calendar.set(2018, 4,5); //2018 05 05로 셋팅
         datas.add(new RefrigeratorItem("김치", "1통" , calendar, null));
-        calendar.set(2018, 8,23);
-        datas.add(new RefrigeratorItem("된장", "1팩", calendar, null));
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(2018, 8,23); //2018 09 23로 셋팅
+        datas.add(new RefrigeratorItem("된장", "1팩", calendar2, null));
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.set(2018, 8,24); //2018 09 23로 셋팅
+        datas.add(new RefrigeratorItem("닭고기", "600g", calendar3, null));
     }
 
     public void dataChanged(){
