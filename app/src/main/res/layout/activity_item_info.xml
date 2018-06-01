@@ -73,6 +73,8 @@
             android:layout_weight="1"
             android:layout_margin="5dp">
             <TextView
+                android:id="@+id/Auto_Date_Click"
+                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="유통기간:"

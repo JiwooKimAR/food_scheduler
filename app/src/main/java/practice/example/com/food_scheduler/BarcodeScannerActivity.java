@@ -37,7 +37,6 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, AutoItemInfoActivity.class);
                 intent.putExtra("BarCode", barcode_result);
                 intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-                System.out.println("FLAG ACTIVITY FORWARD RESULT 사용");
                 startActivity(intent);
                 finish();
             }

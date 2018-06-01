@@ -9,4 +9,7 @@
     <item
         android:id="@+id/optionMenu_rotate"
         android:title="사진 회전"/>
+    <item
+        android:id="@+id/optionMenu_auto"
+        android:title="유통기한 자동 인식" />
 </menu>
