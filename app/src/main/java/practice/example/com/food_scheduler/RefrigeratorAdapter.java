@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by user on 2018-04-12.
+ * Created by SeLee Chae
+ * sett list view of refrigerator activity
+ * handle with visibility of check box
  */
 
 public class RefrigeratorAdapter extends ArrayAdapter<RefrigeratorItem>{

@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 /**
- * Created by user on 2018-05-06.
+ * Created by SeLee Chae
+ * information about each refrigerator item handled by refrigerator adapter
  */
 
 public class RefrigeratorItem implements Serializable{

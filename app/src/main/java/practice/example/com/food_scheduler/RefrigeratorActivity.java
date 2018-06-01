@@ -1,15 +1,11 @@
 package practice.example.com.food_scheduler;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -18,7 +14,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * http://recipes4dev.tistory.com/48 참고해서 listview 아이테 수정 및 추가 설정
+ * created by SeLee Chae
+ * Activity to show list of refrigerator items(ingredients)
  */
 public class RefrigeratorActivity extends AppCompatActivity {
     boolean btn_cookSecondClick = false;
@@ -31,27 +28,22 @@ public class RefrigeratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refrigerator);
 
-        // Debug
-        Log.i("RefAct", getPackageName());
-
-        //어댑터 만들고 초기 데이터 설정
         adapter  = new RefrigeratorAdapter(this, R.layout.refrigerator_item, new ArrayList<RefrigeratorItem>());
-        adapter.initForTest();//초기화용 테스트용
+        adapter.initForTest();//put some initialized items for test
 
-        //그 외 view들 아이디 매칭
         listView_refrigerator = findViewById(R.id.refrigerator_listview);
         btn_cook = findViewById(R.id.btn_cook);
         btn_add = findViewById(R.id.btn_add);
         btn_choose = findViewById(R.id.btn_choose);
         btn_delete = findViewById(R.id.btn_delete);
 
-        //클릭리스너 객체 생성
+        //ClickListener set
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
-                    case R.id.btn_add://재료 추가 버튼 누를시
-                        //팝업 메뉴 호출
+                    case R.id.btn_add:
+                        //show popup menu
                         PopupMenu popup = new PopupMenu(getApplicationContext(), v);
                         getMenuInflater().inflate(R.menu.add_option_menu, popup.getMenu());
 
@@ -59,12 +51,12 @@ public class RefrigeratorActivity extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch(item.getItemId()){
-                                    case R.id.optionMenu_addByBarcode://바코드로 추가
+                                    case R.id.optionMenu_addByBarcode://add by barcode
                                         Intent intent_BarcodeAdd = new Intent(RefrigeratorActivity.this, BarcodeScannerActivity.class);
                                         startActivityForResult(intent_BarcodeAdd, 0);
                                         //바코드로 아이템 추가 코드
                                         break;
-                                    case R.id.optionMeue_addBySelf://직접추가
+                                    case R.id.optionMeue_addBySelf://add by myself
                                         Intent intent_RefriToAdd = new Intent(RefrigeratorActivity.this,ItemInfoActivity.class);
                                         startActivityForResult(intent_RefriToAdd,0);
                                         break;
@@ -75,35 +67,36 @@ public class RefrigeratorActivity extends AppCompatActivity {
                         popup.show();
                         break;
                     case R.id.btn_cook:
-                        //선택된 아이템 테스트를 어레이 리스트로 넘기기
+                        //pass intent with array of refrigerator items selected by user
                         ArrayList<RefrigeratorItem> ingredients = adapter.getCheckedItems();
 
                         if(ingredients.size() > 0) {
                             Intent intent_RefriToAbleFood = new Intent(RefrigeratorActivity.this, AbleFoodListActivity.class);
                             intent_RefriToAbleFood.putExtra("INGREDIENTS", ingredients);
                             startActivity(intent_RefriToAbleFood);
-                        }else {
+                        }else {//there is no selected item when passing
                             Toast.makeText(getApplicationContext(), "아무것도 선택하지 않으셨습니다.", Toast.LENGTH_SHORT).show();
                         }
+
+                        //initialize checkBox
                         btn_cookSecondClick = false;
                         adapter.setCheckBoxVisibility(false);
-                        btnChangedInitialMode();
+                        btnChangedInitialMode();//change button alignment(cook & choose & delete -> choose & add)
                         break;
                     case R.id.btn_choose:
                         if(btn_cookSecondClick == false) {
-                            //모든 리스트뷰 checkBox 활성화
+                            //change check box visible
                             adapter.setCheckBoxVisibility(true);
-                            btnChangedChooseMode();
                             btn_cookSecondClick = true;
-                        }
-                        else{
+                            btnChangedChooseMode(); //change button alignment(choose & add -> cook & choose & delete)
+                        }else{
                             adapter.setCheckBoxVisibility(false);
                             btnChangedInitialMode();
                             btn_cookSecondClick = false;
                         }
                         break;
                     case R.id.btn_delete:
-                        //선택된 아이템 테스트를 어레이 리스트로 넘기기
+                        //pass intent with array of refrigerator items selected by user
                         ArrayList<RefrigeratorItem> deleteItems = adapter.getCheckedItems();
 
                         if(deleteItems.size() > 0) {
@@ -111,19 +104,23 @@ public class RefrigeratorActivity extends AppCompatActivity {
                                 adapter.removeItem(deleteItems.get(i));
                             }
                             adapter.dataChanged();
-                        }else {
+                        }else {//there is no selected item when passing
                             Toast.makeText(getApplicationContext(), "아무것도 선택하지 않으셨습니다.", Toast.LENGTH_SHORT).show();
                         }
+
+                        //initialize checkBox
                         btn_cookSecondClick = false;
                         adapter.setCheckBoxVisibility(false);
-                        btnChangedInitialMode();
+                        btnChangedInitialMode();//change button alignment(cook & choose & delete -> choose & add)
                         break;
                 }
             }
         };
-
-        //어댑터 설정
         listView_refrigerator.setAdapter(adapter);
+        btn_cook.setOnClickListener(listener);
+        btn_add.setOnClickListener(listener);
+        btn_choose.setOnClickListener(listener);
+        btn_delete.setOnClickListener(listener);
 
         //아이템을 클릭시 수정화면으로 넘어가기
         listView_refrigerator.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -136,11 +133,6 @@ public class RefrigeratorActivity extends AppCompatActivity {
                 startActivityForResult(intent_HomeToEdit,0);
             }
         });
-
-        btn_cook.setOnClickListener(listener);
-        btn_add.setOnClickListener(listener);
-        btn_choose.setOnClickListener(listener);
-        btn_delete.setOnClickListener(listener);
     }
 
     @Override
@@ -148,10 +140,10 @@ public class RefrigeratorActivity extends AppCompatActivity {
         System.out.println("onActivityResult 나온다");
         //check this is result of add_mode or edit_mode
         int add_mode_set = 1, edit_mode_set = 2;
-        if (resultCode == add_mode_set) {
+        if (resultCode == add_mode_set) {//make new refrigerator item
             adapter.addItem((RefrigeratorItem) intent.getSerializableExtra("ADDINFO"));
             adapter.dataChanged();
-        } else if (resultCode == edit_mode_set) {
+        } else if (resultCode == edit_mode_set) {//revise selected item
             RefrigeratorItem editItem = (RefrigeratorItem) intent.getSerializableExtra("EDITINFO");
             int pos = intent.getIntExtra("POSITION", -1);
             if (pos != -1) {
@@ -163,13 +155,12 @@ public class RefrigeratorActivity extends AppCompatActivity {
             adapter.dataChanged();
         }
     }
-    public void btnChangedChooseMode(){
+    public void btnChangedChooseMode(){//set upper button like (Cook & Choose & Delete)
         btn_cook.setVisibility(View.VISIBLE);
         btn_add.setVisibility(View.GONE);
         btn_delete.setVisibility(View.VISIBLE);
     }
-
-    public void btnChangedInitialMode(){
+    public void btnChangedInitialMode(){//set supper button like (Choose & Add)
         btn_cook.setVisibility(View.GONE);
         btn_add.setVisibility(View.VISIBLE);
         btn_delete.setVisibility(View.GONE);

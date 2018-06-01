@@ -29,14 +29,7 @@ public class AbleFoodItem {
         this.foodName = foodName;
         this.foodNum = foodNum;
         this.foodIngredientList = foodIngredientList;
-
-        // NOTICE  : 성희 파일 주소 수정 요함
-        //File imgpath = new File("/drawable/f" + foodNum + ".jpg");
-
-//        System.out.println(getResources().getIdentifier("btn_add", "id", getPackageName()));
-//        foodImg.setImageResource(getId("drawable","f"+foodNum));
     }
-    //int img = R.id
 
     public String getFoodName() { return foodName; }
     public ImageView getFoodImgView() { return foodImg; }

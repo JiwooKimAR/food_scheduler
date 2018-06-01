@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by user on 2018-04-12.
+ * Created by SeLee Chae
  */
 
 public class RefriItemInfor {

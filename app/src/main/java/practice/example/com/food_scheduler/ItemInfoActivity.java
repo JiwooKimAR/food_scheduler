@@ -23,7 +23,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-/*
+/**
+ * created by SeLee Chae
+ * add new item or edit selected item
  */
 public class ItemInfoActivity extends AppCompatActivity {
     int cancel_mode_set = 0, add_mode_set = 1, edit_mode_set = 2;
