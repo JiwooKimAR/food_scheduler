@@ -19,7 +19,6 @@ import java.io.IOException;
  *
  */
 
-// NOTICE : 전혀 이상한 음시과 매칭;;
 public class WebCroller extends AppCompatActivity {
 
     int cnt = 0;
@@ -53,7 +52,6 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
     WebCroll(WebView wv, String foodNum) {
         urlNum = foodNum;
         wv1 = wv;
-        System.out.println(foodNum + "-3");
     }
 
     @Override
@@ -83,6 +81,5 @@ class WebCroll extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result) {
         if(htmlContentInStringFormat.trim().contains("oncontextmenu=\"\"></a>")) htmlContentInStringFormat = htmlContentInStringFormat.split("oncontextmenu=\"\"></a>")[1];
         wv1.loadData(htmlContentInStringFormat.trim(), "text/html; charset=utf-8", null);
-        //System.out.println("onPostExecute--" + htmlContentInStringFormat.trim());
     }
 }

@@ -124,8 +124,20 @@ public class RefrigeratorAdapter extends ArrayAdapter<RefrigeratorItem>{
         calendar2.set(2018, 8,23); //2018 09 23로 셋팅
         datas.add(new RefrigeratorItem("된장", "1팩", calendar2, null));
         Calendar calendar3 = Calendar.getInstance();
-        calendar3.set(2018, 8,24); //2018 09 23로 셋팅
+        calendar3.set(2018, 7,20); //2018 09 23로 셋팅
         datas.add(new RefrigeratorItem("닭고기", "600g", calendar3, null));
+        Calendar calendar4 = Calendar.getInstance();
+        calendar4.set(2018, 7,5); //2018 09 23로 셋팅
+        datas.add(new RefrigeratorItem("오이", "2개", calendar4, null));
+        Calendar calendar5 = Calendar.getInstance();
+        calendar5.set(2018, 7,6); //2018 09 23로 셋팅
+        datas.add(new RefrigeratorItem("당근", "3개", calendar5, null));
+        Calendar calendar6 = Calendar.getInstance();
+        calendar6.set(2018, 7,5); //2018 09 23로 셋팅
+        datas.add(new RefrigeratorItem("양파", "2개", calendar6, null));
+        Calendar calendar7 = Calendar.getInstance();
+        calendar7.set(2018, 7,10); //2018 09 23로 셋팅
+        datas.add(new RefrigeratorItem("감자", "2개", calendar7, null));
     }
 
     public void dataChanged(){
