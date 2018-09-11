@@ -57,6 +57,7 @@ public class ItemInfoActivity extends AppCompatActivity {
         intent = getIntent();
         edit_mode = intent.getBooleanExtra("EDITMODE",false);
 
+        Picasso.get().load("https://static9.depositphotos.com/1077687/1237/v/950/depositphotos_12370584-stock-illustration-chefs-hat.jpg"/**/).placeholder(R.drawable.ic_type_image).into(img_item);
         //edit 모드라면 값 로딩
         if(edit_mode) {
             RefrigeratorItem item = (RefrigeratorItem) intent.getSerializableExtra("ITEM");
@@ -69,9 +70,6 @@ public class ItemInfoActivity extends AppCompatActivity {
                 byte[] byteArr = item.getByteArray();
                 Bitmap bit = byteArrayToBitmap(byteArr);
                 img_item.setImageBitmap(bit);
-            } else { // 나중에도 이미지가 없을 수 있을까?
-                //picasso이용하여 해당 url의 그림 불러오기
-                Picasso.get().load("http://i.imgur.com/DvpvklR.png"/**/).placeholder(R.drawable.ic_type_image).into(img_item);
             }
         }
 

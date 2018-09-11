@@ -26,7 +26,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_refrigerator);
+        setContentView(R.layout.activity_refrigerator_new);
 
         adapter  = new RefrigeratorAdapter(this, R.layout.refrigerator_item, new ArrayList<RefrigeratorItem>());
         adapter.initForTest();//put some initialized items for test
@@ -34,8 +34,9 @@ public class RefrigeratorActivity extends AppCompatActivity {
         listView_refrigerator = findViewById(R.id.refrigerator_listview);
         btn_cook = findViewById(R.id.btn_cook);
         btn_add = findViewById(R.id.btn_add);
-        btn_choose = findViewById(R.id.btn_choose);
+        //btn_choose = findViewById(R.id.btn_choose);
         btn_delete = findViewById(R.id.btn_delete);
+        adapter.setCheckBoxVisibility(true);
 
         //ClickListener set
         View.OnClickListener listener = new View.OnClickListener() {
@@ -80,10 +81,10 @@ public class RefrigeratorActivity extends AppCompatActivity {
 
                         //initialize checkBox
                         btn_cookSecondClick = false;
-                        adapter.setCheckBoxVisibility(false);
-                        btnChangedInitialMode();//change button alignment(cook & choose & delete -> choose & add)
+                        //adapter.setCheckBoxVisibility(false);
+                        //btnChangedInitialMode();//change button alignment(cook & choose & delete -> choose & add)
                         break;
-                    case R.id.btn_choose:
+                   /* case R.id.btn_choose:
                         if(btn_cookSecondClick == false) {
                             //change check box visible
                             adapter.setCheckBoxVisibility(true);
@@ -94,7 +95,7 @@ public class RefrigeratorActivity extends AppCompatActivity {
                             btnChangedInitialMode();
                             btn_cookSecondClick = false;
                         }
-                        break;
+                        break;*/
                     case R.id.btn_delete:
                         //pass intent with array of refrigerator items selected by user
                         ArrayList<RefrigeratorItem> deleteItems = adapter.getCheckedItems();
@@ -110,8 +111,8 @@ public class RefrigeratorActivity extends AppCompatActivity {
 
                         //initialize checkBox
                         btn_cookSecondClick = false;
-                        adapter.setCheckBoxVisibility(false);
-                        btnChangedInitialMode();//change button alignment(cook & choose & delete -> choose & add)
+                        //adapter.setCheckBoxVisibility(false);
+                        //btnChangedInitialMode();//change button alignment(cook & choose & delete -> choose & add)
                         break;
                 }
             }

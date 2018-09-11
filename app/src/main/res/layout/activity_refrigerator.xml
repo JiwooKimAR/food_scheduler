@@ -38,11 +38,11 @@
             android:text="DELETE"
             android:visibility="gone"/>
     </LinearLayout>
+
     <ListView
         android:id="@+id/refrigerator_listview"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_below="@id/button_layout"
-        />
+        android:layout_height="match_parent"
+        android:layout_below="@id/button_layout" />
 
 </RelativeLayout>
